@@ -6,4 +6,4 @@ const authenticate = () => {
   return firebase.auth().signInWithPopup(provider);
 };
 
-export default authenticate;
+export default { authenticate };
