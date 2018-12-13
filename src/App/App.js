@@ -4,6 +4,7 @@ import connection from '../helpers/data/connection';
 
 import Auth from '../components/Auth/Auth';
 import Profile from '../components/Profile/Profile';
+import MyNavbar from '../components/MyNavbar/MyNavbar';
 
 import './App.scss';
 
@@ -30,6 +31,7 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <MyNavbar />
         <Auth />
         <Profile />
       </div>
