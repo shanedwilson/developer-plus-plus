@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import connection from '../helpers/data/connection';
+import Auth from '../components/Auth/Auth';
 
 import './App.scss';
 
 class App extends Component {
+  componentDidMount() {
+    connection();
+  }
+
   render() {
-    console.log(this);
     return (
       <div className="App">
-        <button className="btn btn-danger">HELP!!!</button>
-        <Button
-            tag="a"
-            color="info"
-            size="large"
-            href="http://google.com"
-            target="_blank"
-          >Reactstrap</Button>
+        <Auth />
       </div>
     );
   }
