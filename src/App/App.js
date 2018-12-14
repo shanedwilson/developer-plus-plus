@@ -5,8 +5,10 @@ import 'firebase/auth';
 import connection from '../helpers/data/connection';
 
 import Auth from '../components/Auth/Auth';
-import Profile from '../components/Profile/Profile';
 import MyNavbar from '../components/MyNavbar/MyNavbar';
+import Profile from '../components/Profile/Profile';
+import Form from '../components/Form/Form';
+import Portal from '../components/Portal/Portal';
 
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -57,6 +59,8 @@ class App extends Component {
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
         <Profile />
+        <Form />
+        <Portal />
       </div>
     );
   }
