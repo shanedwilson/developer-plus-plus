@@ -12,6 +12,7 @@ import Portal from '../components/Portal/Portal';
 
 import blogData from '../helpers/data/blogData';
 import podcastData from '../helpers/data/podcastData';
+import resourceData from '../helpers/data/resourceData';
 
 
 import './App.scss';
@@ -23,6 +24,7 @@ class App extends Component {
     authed: false,
     profile: [],
     blogs: [],
+    resources: [],
   }
 
   componentDidMount() {
@@ -41,6 +43,11 @@ class App extends Component {
       })
       .catch(err => console.error('error with podcast GET', err));
 
+    resourceData.getResourcesData()
+      .then((resources) => {
+        this.setState({ resources });
+      })
+      .catch(err => console.error('error with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       githubData.getUserEvents(user);
@@ -95,6 +102,7 @@ class App extends Component {
             <Portal
             blogs={this.state.blogs}
             podcasts={this.state.podcasts}
+            resources={this.state.resources}
             />
           </div>
         </div>
