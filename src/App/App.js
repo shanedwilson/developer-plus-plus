@@ -11,6 +11,7 @@ import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
 import blogData from '../helpers/data/blogData';
+import podcastData from '../helpers/data/podcastData';
 
 
 import './App.scss';
@@ -32,7 +33,13 @@ class App extends Component {
       .then((blogs) => {
         this.setState({ blogs });
       })
-      .catch(err => console.error('error with listing GET', err));
+      .catch(err => console.error('error with blogs GET', err));
+
+    podcastData.getPodcastsData()
+      .then((podcasts) => {
+        this.setState({ podcasts });
+      })
+      .catch(err => console.error('error with podcast GET', err));
 
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
@@ -85,7 +92,10 @@ class App extends Component {
           <Profile profile={this.state.profile}/>
           <div className="col-8">
             <Form />
-            <Portal blogs={this.state.blogs}/>
+            <Portal
+            blogs={this.state.blogs}
+            podcasts={this.state.podcasts}
+            />
           </div>
         </div>
       </div>
