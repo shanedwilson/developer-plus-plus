@@ -3,7 +3,7 @@ import 'firebase/auth';
 
 const authenticate = () => {
   const provider = new firebase.auth.GithubAuthProvider();
-  return firebase.auth().signInWithPopup(provider);
+  firebase.auth().signInWithPopup(provider);
 };
 
 const logoutUser = () => {
