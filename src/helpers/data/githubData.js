@@ -4,6 +4,7 @@ import axios from 'axios';
 const getUser = user => new Promise((resolve, reject) => {
   axios.get('https://api.github.com/users/shanedwilson')
     .then((res) => {
+      console.log(res.data);
       resolve(res.data);
     })
     .catch((err) => {
@@ -11,14 +12,15 @@ const getUser = user => new Promise((resolve, reject) => {
     });
 });
 
-// const getUserEvents = username => new Promise((resolve, reject) => {
-//   axios.get(`https://api.github.com/users/${username}/events/public`)
-//     .then((res) => {
-//       resolve(res);
-//     })
-//     .catch((err) => {
-//       reject(err);
-//     });
-// });
+const getUserEvents = username => new Promise((resolve, reject) => {
+  axios.get('https://api.github.com/users/shanedwilson/events/public')
+    .then((res) => {
+      console.log(res.data);
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
 
-export default { getUser };
+export default { getUser, getUserEvents };

@@ -23,6 +23,7 @@ class App extends Component {
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      githubData.getUserEvents(user);
       githubData.getUser(user)
         .then((profile) => {
           this.setState({ profile });
