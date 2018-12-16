@@ -12,15 +12,23 @@ import Portal from '../components/Portal/Portal';
 
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
+import githubData from '../helpers/data/githubData';
 
 class App extends Component {
   state = {
     authed: false,
+    profile: [],
   }
 
   componentDidMount() {
     connection();
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      githubData.getUserEvents(user);
+      githubData.getUser(user)
+        .then((profile) => {
+          this.setState({ profile });
+        })
+        .catch(err => console.error('error with github profile GET', err));
       if (user) {
         this.setState({
           authed: true,
@@ -61,7 +69,7 @@ class App extends Component {
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
         <div className="row">
-          <Profile />
+          <Profile profile={this.state.profile}/>
           <div className="col-8">
             <Form />
             <Portal />
