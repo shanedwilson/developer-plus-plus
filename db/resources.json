@@ -1,0 +1,17 @@
+{
+  "resource0" : {
+    "name" : "Bootstrap",
+    "url" : "https://getbootstrap.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "resource1" : {
+    "name" : "jQuery Cheatsheet",
+    "url" : "https://oscarotero.com/jquery/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "resource2" : {
+    "name" : "Moqups",
+    "url" : "https://moqups.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  }
+}

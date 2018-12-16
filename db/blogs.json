@@ -1,0 +1,17 @@
+{
+  "blog0" : {
+    "name" : "CodePen Blog",
+    "url" : "https://blog.codepen.io/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "blog1" : {
+    "name" : "CSS Tricks",
+    "url" : "https://css-tricks.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "blog2" : {
+    "name" : "The Daily WTF",
+    "url" : "http://thedailywtf.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  }
+}

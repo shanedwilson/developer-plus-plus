@@ -1,0 +1,17 @@
+{
+  "podcast0" : {
+    "name" : "Syntax",
+    "url" : "https://syntax.fm/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "podcast1" : {
+    "name" : "This Developers Life",
+    "url" : "http://thisdeveloperslife.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "podcast2" : {
+    "name" : "Herding Code",
+    "url" : "http://herdingcode.com/",
+    "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  }
+}
