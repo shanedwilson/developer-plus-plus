@@ -10,6 +10,9 @@ import Profile from '../components/Profile/Profile';
 import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
+import blogData from '../helpers/data/blogData';
+
+
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
 import githubData from '../helpers/data/githubData';
@@ -18,10 +21,20 @@ class App extends Component {
   state = {
     authed: false,
     profile: [],
+    blogs: [],
   }
 
   componentDidMount() {
     connection();
+
+
+    blogData.getBlogsData()
+      .then((blogs) => {
+        this.setState({ blogs });
+      })
+      .catch(err => console.error('error with listing GET', err));
+
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       githubData.getUserEvents(user);
       githubData.getUser(user)
@@ -72,7 +85,7 @@ class App extends Component {
           <Profile profile={this.state.profile}/>
           <div className="col-8">
             <Form />
-            <Portal />
+            <Portal blogs={this.state.blogs}/>
           </div>
         </div>
       </div>
