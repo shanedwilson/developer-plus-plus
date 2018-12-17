@@ -31,6 +31,18 @@ class App extends Component {
   componentDidMount() {
     connection();
 
+    githubData.getUserEvents()
+      .then((userEvents) => {
+        this.setState({ userEvents });
+      })
+      .catch(err => console.error('error with github user events GET', err));
+
+    githubData.getUser()
+      .then((profile) => {
+        this.setState({ profile });
+      })
+      .catch(err => console.error('error with github user GET', err));
+
 
     blogData.getBlogsData()
       .then((blogs) => {
@@ -54,15 +66,9 @@ class App extends Component {
       .then((tutorials) => {
         this.setState({ tutorials });
       })
-      .catch(err => console.error('error with podcast GET', err));      
+      .catch(err => console.error('error with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      githubData.getUserEvents(user);
-      githubData.getUser(user)
-        .then((profile) => {
-          this.setState({ profile });
-        })
-        .catch(err => console.error('error with github profile GET', err));
       if (user) {
         this.setState({
           authed: true,
