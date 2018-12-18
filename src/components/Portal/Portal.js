@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import React from 'react';
 
-import BlogItem from '../BlogItem/BlogItem';
+import Item from '../Item/Item';
 import PodcastItem from '../PodcastItem/PodcastItem';
 import ResourceItem from '../ResourceItem/ResourceItem';
 import TutorialItem from '../TutorialItem/TutorialItem';
@@ -12,15 +12,15 @@ import './Portal.scss';
 
 class Portal extends React.Component {
   render() {
-    const { blogs } = this.props;
+    const { items } = this.props;
     const { podcasts } = this.props;
     const { resources } = this.props;
     const { tutorials } = this.props;
 
-    const blogItemComponents = blogs.map(blog => (
-      <BlogItem
-        blog={blog}
-        key={blog.id}
+    const itemComponents = items.map(item => (
+      <Item
+        item={item}
+        key={item.id}
       />
     ));
 
@@ -48,7 +48,7 @@ class Portal extends React.Component {
     return (
       <div className="portal mx-auto mt-5">
         <PortalNavbar />
-        {blogItemComponents}
+        {itemComponents}
         {podcastItemComponents}
         {resourceItemComponents}
         {tutorialItemComponents}

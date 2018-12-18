@@ -3,20 +3,20 @@ import apiKeys from '../apiKeys';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const getBlogsData = uid => new Promise((resolve, reject) => {
+const getItemsData = (uid, item) => new Promise((resolve, reject) => {
   axios
-    .get(`${firebaseUrl}/blogs.json?orderBy="uid"&equalTo="${uid}"`)
+    .get(`${firebaseUrl}/${item}.json?orderBy="uid"&equalTo="${uid}"`)
     .then((res) => {
-      const blogsArray = [];
+      const itemsArray = [];
       if (res.data !== null) {
         Object.keys(res.data).forEach((key) => {
           res.data[key].id = key;
-          blogsArray.push(res.data[key]);
+          itemsArray.push(res.data[key]);
         });
       }
-      resolve(blogsArray);
+      resolve(itemsArray);
     })
     .catch(err => reject(err));
 });
 
-export default { getBlogsData };
+export default { getItemsData };

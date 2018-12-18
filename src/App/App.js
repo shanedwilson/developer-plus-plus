@@ -10,7 +10,7 @@ import Profile from '../components/Profile/Profile';
 import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
-import blogData from '../helpers/data/blogData';
+import itemData from '../helpers/data/itemData';
 import podcastData from '../helpers/data/podcastData';
 import resourceData from '../helpers/data/resourceData';
 import tutorialData from '../helpers/data/tutorialData';
@@ -24,7 +24,7 @@ class App extends Component {
   state = {
     authed: false,
     profile: [],
-    blogs: [],
+    items: [],
     resources: [],
     github_username: '',
   }
@@ -49,13 +49,14 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    const writeBlogs = () => {
+    const writeItems = () => {
       const uid = authRequests.getCurrentUid();
-      blogData.getBlogsData(uid)
-        .then((blogs) => {
-          this.setState({ blogs });
+      const item = 'blogs';
+      itemData.getItemsData(uid, item)
+        .then((items) => {
+          this.setState({ items });
         })
-        .catch(err => console.error('error with blogs GET', err));
+        .catch(err => console.error('error with items GET', err));
     };
 
     podcastData.getPodcastsData()
@@ -79,7 +80,7 @@ class App extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('githubUsername');
-        writeBlogs();
+        writeItems();
         this.setState({
           authed: true,
           github_username: users,
@@ -125,7 +126,7 @@ class App extends Component {
           <div className="col-8">
             <Form />
             <Portal
-            blogs={this.state.blogs}
+            items={this.state.items}
             podcasts={this.state.podcasts}
             resources={this.state.resources}
             tutorials={this.state.tutorials}
