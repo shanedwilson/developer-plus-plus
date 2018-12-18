@@ -35,7 +35,14 @@ class App extends Component {
         .then((profile) => {
           this.setState({ profile });
         })
-        .catch(err => console.error(err));
+        .catch(err => console.error('error with github user GET', err));
+    }
+    if (this.state.github_username && this.state.profile.length === 0) {
+      githubData.getUserEvents(this.state.github_username)
+        .then((userEvents) => {
+          this.setState({ userEvents });
+        })
+        .catch(err => console.error('error with github user events GET', err));
     }
   }
 
@@ -50,18 +57,6 @@ class App extends Component {
         })
         .catch(err => console.error('error with blogs GET', err));
     };
-
-    githubData.getUserEvents(this.state.github_username)
-      .then((userEvents) => {
-        this.setState({ userEvents });
-      })
-      .catch(err => console.error('error with github user events GET', err));
-
-    // githubData.getUser(this.state.github_username)
-    //   .then((profile) => {
-    //     this.setState({ profile });
-    //   })
-    //   .catch(err => console.error('error with github user GET', err));
 
     podcastData.getPodcastsData()
       .then((podcasts) => {
