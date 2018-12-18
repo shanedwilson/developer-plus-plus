@@ -1,5 +1,7 @@
 // import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import itemShape from '../../helpers/propz/itemShape';
 
 import Item from '../Item/Item';
 import PodcastItem from '../PodcastItem/PodcastItem';
@@ -11,6 +13,10 @@ import PortalNavbar from '../PortalNavbar/PortalNavbar';
 import './Portal.scss';
 
 class Portal extends React.Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(itemShape),
+  }
+
   render() {
     const { items } = this.props;
     const { podcasts } = this.props;
