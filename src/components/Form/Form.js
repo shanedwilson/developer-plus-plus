@@ -4,8 +4,8 @@ import './Form.scss';
 class Form extends React.Component {
   render() {
     return (
-      <div className="row form-container mx-auto">
-        <div className="form col-8">
+      <div className="row form-container mx-auto border border-dark rounded mt-5">
+        <div className="form col-8 mt-2">
           <div className="col-auto">
             <label className="sr-only">Name</label>
             <div className="input-group mb-2">
