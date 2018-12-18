@@ -5,6 +5,7 @@ import BlogItem from '../BlogItem/BlogItem';
 import PodcastItem from '../PodcastItem/PodcastItem';
 import ResourceItem from '../ResourceItem/ResourceItem';
 import TutorialItem from '../TutorialItem/TutorialItem';
+import PortalNavbar from '../PortalNavbar/PortalNavbar';
 
 
 import './Portal.scss';
@@ -45,8 +46,8 @@ class Portal extends React.Component {
     ));
 
     return (
-      <div className="portal">
-        <h2>PORTAL</h2>
+      <div className="portal mx-auto mt-5">
+        <PortalNavbar />
         {blogItemComponents}
         {podcastItemComponents}
         {resourceItemComponents}
