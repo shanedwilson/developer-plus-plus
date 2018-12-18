@@ -11,9 +11,9 @@ import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
 import itemData from '../helpers/data/itemData';
-import podcastData from '../helpers/data/podcastData';
-import resourceData from '../helpers/data/resourceData';
-import tutorialData from '../helpers/data/tutorialData';
+// import podcastData from '../helpers/data/podcastData';
+// import resourceData from '../helpers/data/resourceData';
+// import tutorialData from '../helpers/data/tutorialData';
 
 
 import './App.scss';
@@ -59,23 +59,23 @@ class App extends Component {
         .catch(err => console.error('error with items GET', err));
     };
 
-    podcastData.getPodcastsData()
-      .then((podcasts) => {
-        this.setState({ podcasts });
-      })
-      .catch(err => console.error('error with podcast GET', err));
+    // podcastData.getPodcastsData()
+    //   .then((podcasts) => {
+    //     this.setState({ podcasts });
+    //   })
+    //   .catch(err => console.error('error with podcast GET', err));
 
-    resourceData.getResourcesData()
-      .then((resources) => {
-        this.setState({ resources });
-      })
-      .catch(err => console.error('error with podcast GET', err));
+    // resourceData.getResourcesData()
+    //   .then((resources) => {
+    //     this.setState({ resources });
+    //   })
+    //   .catch(err => console.error('error with podcast GET', err));
 
-    tutorialData.getTutorialsData()
-      .then((tutorials) => {
-        this.setState({ tutorials });
-      })
-      .catch(err => console.error('error with podcast GET', err));
+    // tutorialData.getTutorialsData()
+    //   .then((tutorials) => {
+    //     this.setState({ tutorials });
+    //   })
+    //   .catch(err => console.error('error with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -102,6 +102,31 @@ class App extends Component {
     sessionStorage.setItem('github_username', username);
   }
 
+  deleteOne = (itemId, itemType) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.deleteItem(itemId, itemType)
+      .then(() => {
+        console.log(uid);
+        // itemData.getItemsData(uid, itemType)
+        //   .then((items) => {
+        //     this.setState({ items });
+        //   });
+      })
+      .catch(err => console.error('error with delete single', err));
+  }
+
+  // deleteOne = (itemId, itemType) => {
+  //   itemData.deleteItem(itemId, itemType)
+  //     .then(() => {
+  //       const uid = authRequests.getCurrentUid();
+  //       itemData.getItemsData(uid, itemType)
+  //         .then((items) => {
+  //           this.setState({ items });
+  //         });
+  //     })
+  //     .catch(err => console.error('error with delete item', err));
+  // }
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -127,9 +152,10 @@ class App extends Component {
             <Form />
             <Portal
             items={this.state.items}
-            podcasts={this.state.podcasts}
-            resources={this.state.resources}
-            tutorials={this.state.tutorials}
+            deleteSingleItem={this.deleteOne}
+            // podcasts={this.state.podcasts}
+            // resources={this.state.resources}
+            // tutorials={this.state.tutorials}
             />
           </div>
         </div>

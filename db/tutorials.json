@@ -2,18 +2,21 @@
     "tutorial0" : {
       "name" : "Wes Bos React For Beginners",
       "url" : "https://reactforbeginners.com/",
-      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
+      "type" : "tutorials"
     },
 
     "tutorial1" : {
       "name" : "A Smarter Way To Learn Javascript",
       "url" : "http://www.asmarterwaytolearn.com/js/index-of-exercises.html",
-      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
+     "type" : "tutorials"
     },
 
     "tutorial2" : {
       "name" : "Party Barn",
       "url" : "https://liquorbarn.com/",
-      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+      "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
+      "type" : "tutorials"
     }
 }
