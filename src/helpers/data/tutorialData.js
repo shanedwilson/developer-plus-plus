@@ -3,9 +3,9 @@ import apiKeys from '../apiKeys';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const getTutorialsData = () => new Promise((resolve, reject) => {
+const getTutorialsData = uid => new Promise((resolve, reject) => {
   axios
-    .get(`${firebaseUrl}/tutorials.json`)
+    .get(`${firebaseUrl}/tutorials.json?orderBy="uid"&equalTo="${uid}"`)
     .then((res) => {
       const tutorialsArray = [];
       if (res.data !== null) {

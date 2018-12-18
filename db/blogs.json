@@ -13,5 +13,10 @@
     "name" : "The Daily WTF",
     "url" : "http://thedailywtf.com/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2"
+  },
+  "blog3" : {
+    "name" : "Not Mine",
+    "url" : "http://google.com",
+    "uid" : "1234"
   }
 }

@@ -26,29 +26,42 @@ class App extends Component {
     profile: [],
     blogs: [],
     resources: [],
+    github_username: '',
+  }
+
+  componentDidUpdate() {
+    if (this.state.github_username && this.state.profile.length === 0) {
+      githubData.getUser(this.state.github_username)
+        .then((profile) => {
+          this.setState({ profile });
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   componentDidMount() {
     connection();
 
-    githubData.getUserEvents()
+    const writeBlogs = () => {
+      const uid = authRequests.getCurrentUid();
+      blogData.getBlogsData(uid)
+        .then((blogs) => {
+          this.setState({ blogs });
+        })
+        .catch(err => console.error('error with blogs GET', err));
+    };
+
+    githubData.getUserEvents(this.state.github_username)
       .then((userEvents) => {
         this.setState({ userEvents });
       })
       .catch(err => console.error('error with github user events GET', err));
 
-    githubData.getUser()
-      .then((profile) => {
-        this.setState({ profile });
-      })
-      .catch(err => console.error('error with github user GET', err));
-
-
-    blogData.getBlogsData()
-      .then((blogs) => {
-        this.setState({ blogs });
-      })
-      .catch(err => console.error('error with blogs GET', err));
+    // githubData.getUser(this.state.github_username)
+    //   .then((profile) => {
+    //     this.setState({ profile });
+    //   })
+    //   .catch(err => console.error('error with github user GET', err));
 
     podcastData.getPodcastsData()
       .then((podcasts) => {
@@ -70,8 +83,11 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const users = sessionStorage.getItem('githubUsername');
+        writeBlogs();
         this.setState({
           authed: true,
+          github_username: users,
         });
       } else {
         this.setState({
@@ -85,14 +101,15 @@ class App extends Component {
     this.removeListener();
   }
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (username) => {
+    this.setState({ authed: true, github_username: username });
+    sessionStorage.setItem('github_username', username);
   }
 
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({ authed: false, github_username: '' });
     };
 
     if (!this.state.authed) {
