@@ -54,7 +54,7 @@ class Portal extends React.Component {
     return (
       <div className="portal mx-auto mt-5">
         <PortalNavbar />
-        {itemComponents}
+        <ul>{itemComponents}</ul>
         {podcastItemComponents}
         {resourceItemComponents}
         {tutorialItemComponents}
