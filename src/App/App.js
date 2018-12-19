@@ -25,8 +25,8 @@ class App extends Component {
     authed: false,
     profile: [],
     items: [],
-    resources: [],
     github_username: '',
+    view: 'blogs',
   }
 
   componentDidUpdate() {
@@ -51,31 +51,13 @@ class App extends Component {
 
     const writeItems = () => {
       const uid = authRequests.getCurrentUid();
-      const item = 'blogs';
-      itemData.getItemsData(uid, item)
+      const selectedView = this.state.view;
+      itemData.getItemsData(uid, selectedView)
         .then((items) => {
           this.setState({ items });
         })
         .catch(err => console.error('error with items GET', err));
     };
-
-    // podcastData.getPodcastsData()
-    //   .then((podcasts) => {
-    //     this.setState({ podcasts });
-    //   })
-    //   .catch(err => console.error('error with podcast GET', err));
-
-    // resourceData.getResourcesData()
-    //   .then((resources) => {
-    //     this.setState({ resources });
-    //   })
-    //   .catch(err => console.error('error with podcast GET', err));
-
-    // tutorialData.getTutorialsData()
-    //   .then((tutorials) => {
-    //     this.setState({ tutorials });
-    //   })
-    //   .catch(err => console.error('error with podcast GET', err));
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -106,26 +88,13 @@ class App extends Component {
     const uid = authRequests.getCurrentUid();
     itemData.deleteItem(itemId, itemType)
       .then(() => {
-        console.log(uid);
-        // itemData.getItemsData(uid, itemType)
-        //   .then((items) => {
-        //     this.setState({ items });
-        //   });
+        itemData.getItemsData(uid, itemType)
+          .then((items) => {
+            this.setState({ items });
+          });
       })
       .catch(err => console.error('error with delete single', err));
   }
-
-  // deleteOne = (itemId, itemType) => {
-  //   itemData.deleteItem(itemId, itemType)
-  //     .then(() => {
-  //       const uid = authRequests.getCurrentUid();
-  //       itemData.getItemsData(uid, itemType)
-  //         .then((items) => {
-  //           this.setState({ items });
-  //         });
-  //     })
-  //     .catch(err => console.error('error with delete item', err));
-  // }
 
   render() {
     const logoutClickEvent = () => {
@@ -153,9 +122,6 @@ class App extends Component {
             <Portal
             items={this.state.items}
             deleteSingleItem={this.deleteOne}
-            // podcasts={this.state.podcasts}
-            // resources={this.state.resources}
-            // tutorials={this.state.tutorials}
             />
           </div>
         </div>

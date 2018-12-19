@@ -19,8 +19,7 @@ const getItemsData = (uid, item) => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-const deleteItem = (itemId, itemType) => {
-  axios.delete(`${firebaseUrl}/${itemType}/${itemId}.json`);
-};
+const deleteItem = (itemId, itemType) => axios.delete(`${firebaseUrl}/${itemType}/${itemId}.json`);
+
 
 export default { getItemsData, deleteItem };
