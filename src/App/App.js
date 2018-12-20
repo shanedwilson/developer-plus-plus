@@ -90,6 +90,20 @@ class App extends Component {
       .catch(err => console.error('error with delete single', err));
   }
 
+  formSubmitEvent = (newItem, itemType) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.postItem(newItem, itemType)
+      .then(() => {
+        itemData.getItemsData(uid, itemType)
+          .then((items) => {
+            this.setState({ items });
+          });
+      }).catch((err) => {
+        console.error('error with items post', err);
+      });
+  }
+
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -112,7 +126,7 @@ class App extends Component {
         <div className="row">
           <Profile profile={this.state.profile}/>
           <div className="col-8">
-            <Form />
+            <Form onSubmit={this.formSubmitEvent} />
             <Portal
             items={this.state.items}
             deleteSingleItem={this.deleteOne}

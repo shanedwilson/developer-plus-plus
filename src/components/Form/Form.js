@@ -1,51 +1,153 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import authRequests from '../../helpers/data/authRequests';
+
 import './Form.scss';
 
+const defaultItem = {
+  name: '',
+  url: '',
+  uid: '',
+  type: '',
+};
+
+
 class Form extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+  }
+
+  state = {
+    newItem: defaultItem,
+    selectedOption: '',
+  }
+
+  formFieldStringState = (name, e) => {
+    e.preventDefault();
+    const tempItem = { ...this.state.newItem };
+    tempItem[name] = e.target.value;
+    this.setState({ newItem: tempItem });
+  }
+
+  nameChange = e => this.formFieldStringState('name', e);
+
+  urlChange = e => this.formFieldStringState('url', e);
+
+  // blogRadioChange = e => this.formFieldBooleanState('blogs', e);
+
+  // tutorialRadioChange = e => this.formFieldBooleanState('tutorials', e);
+
+  // resourceRadioChange = e => this.formFieldBooleanState('resources', e);
+
+  // podcastRadioChange = e => this.formFieldBooleanState('podcasts', e);
+
+  handleOptionChange = (e) => {
+    // const key = 'type';
+    const tempItem = { ...this.state.newItem };
+    tempItem.type = e.target.value;
+    this.setState({ newItem: tempItem });
+  }
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const myItem = { ...this.state.newItem };
+    const itemType = myItem.type;
+    myItem.uid = authRequests.getCurrentUid();
+    onSubmit(myItem, itemType);
+    this.setState({ newItem: defaultItem });
+  }
+
   render() {
+    const { newItem } = this.state;
+
     return (
-      <div className="row form-container mx-auto border border-dark rounded mt-5">
-        <div className="form col-8 mt-2">
-          <div className="col-auto">
-            <label className="sr-only">Name</label>
-            <div className="input-group mb-2">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Name</div>
+      <div >
+        <form className="row form-container mx-auto border border-dark rounded mt-5" onSubmit={this.formSubmit}>
+          <div className="form col-8 mt-4">
+            <div className="col-auto">
+              <label htmlFor="name" className="sr-only">Name</label>
+              <div className="input-group mb-2">
+                <div className="input-group-prepend">
+                  <div className="input-group-text">Name</div>
+                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Mr. Rogers"
+                  onChange={this.nameChange}
+                  value={newItem.name}>
+                </input>
               </div>
-              <input type="text" className="form-control" id="name-input" placeholder="Mr. Rogers"></input>
+            </div>
+            <div className="col-auto">
+              <label htmlFor="link" className="sr-only">Link</label>
+              <div className="input-group mb-2">
+                <div className="input-group-prepend">
+                  <div className="input-group-text">Link</div>
+                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="url"
+                  placeholder="www.shityeah.com"
+                  onChange={this.urlChange}
+                  value={newItem.url}>
+                </input>
+              </div>
             </div>
           </div>
-          <div className="col-auto">
-            <label className="sr-only">Link</label>
-            <div className="input-group mb-2">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Link</div>
-              </div>
-              <input type="text" className="form-control" id="link-input" placeholder="www.shityeah.com"></input>
+          <div className="col-3 radio radio-buttons btn-group-vertical btn-group-toggle">
+            <div className="custom-control custom-radio">
+              <input type="radio"
+                value="blogs"
+                id="blogRadio"
+                name="customRadio"
+                className="custom-control-input"
+                checked={this.state.selectedOption === 'blogs'}
+                onChange={this.handleOptionChange}
+              />
+              <label className="custom-control-label" htmlFor="blogRadio">Blogs</label>
+            </div>
+            <div className="custom-control custom-radio">
+              <input type="radio"
+                value="tutorials"
+                id="tutorialRadio"
+                name="customRadio"
+                className="custom-control-input"
+                checked={this.state.selectedOption === 'tutorials'}
+                onChange={this.handleOptionChange}
+              />
+              <label className="custom-control-label" htmlFor="tutorialRadio">Tutorials</label>
+            </div>
+            <div className="custom-control custom-radio">
+              <input type="radio"
+                value="resources"
+                id="resourceRadio"
+                name="customRadio"
+                className="custom-control-input"
+                checked={this.state.selectedOption === 'resources'}
+                onChange={this.handleOptionChange}
+              />
+              <label className="custom-control-label" htmlFor="resourceRadio">Resources</label>
+            </div>
+            <div className="custom-control custom-radio">
+              <input type="radio"
+                value="podcasts"
+                id="podcastRadio"
+                name="customRadio"
+                className="custom-control-input"
+                checked={this.state.selectedOption === 'podcasts'}
+                onChange={this.handleOptionChange}
+              />
+              <label className="custom-control-label" htmlFor="podcastRadio">Podcasts</label>
             </div>
           </div>
-        </div>
-        <div className="col-3 radio-buttons">
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="tutorialRadio" id="tutorial-radio" value="option1"></input>
-            <label className="form-check-label">Tutorial</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="blogRadio" id="blog-radio" value="option1"></input>
-            <label className="form-check-label">Blog</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="resourceRadio" id="resource-radio" value="option1"></input>
-            <label className="form-check-label">Resource</label>
-          </div>
-          <div className="form-check">
-            <input className="form-check-input" type="radio" name="podcastRadio" id="podcast-radio" value="option1"></input>
-            <label className="form-check-label">Podcast</label>
-          </div>
-        </div>
-        <button type="submit" className="btn add-btn">
-          <i className="fas fa-plus-circle icon-large"></i>
-        </button>
+          <button type="submit" className="btn add-btn btn-success my-5">
+            <i className="fas fa-plus-circle" />
+          </button>
+        </form>
       </div>
     );
   }
