@@ -10,11 +10,7 @@ import Profile from '../components/Profile/Profile';
 import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
-import blogData from '../helpers/data/blogData';
-import podcastData from '../helpers/data/podcastData';
-import resourceData from '../helpers/data/resourceData';
-import tutorialData from '../helpers/data/tutorialData';
-
+import itemData from '../helpers/data/itemData';
 
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -24,10 +20,18 @@ class App extends Component {
   state = {
     authed: false,
     profile: [],
-    blogs: [],
-    resources: [],
+    items: [],
     github_username: '',
+    view: 'blogs',
   }
+
+  displayView = (clickedView) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.getItemsData(uid, clickedView)
+      .then((items, selectedView) => {
+        this.setState({ items, view: selectedView });
+      });
+  };
 
   componentDidUpdate() {
     if (this.state.github_username && this.state.profile.length === 0) {
@@ -49,37 +53,10 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    const writeBlogs = () => {
-      const uid = authRequests.getCurrentUid();
-      blogData.getBlogsData(uid)
-        .then((blogs) => {
-          this.setState({ blogs });
-        })
-        .catch(err => console.error('error with blogs GET', err));
-    };
-
-    podcastData.getPodcastsData()
-      .then((podcasts) => {
-        this.setState({ podcasts });
-      })
-      .catch(err => console.error('error with podcast GET', err));
-
-    resourceData.getResourcesData()
-      .then((resources) => {
-        this.setState({ resources });
-      })
-      .catch(err => console.error('error with podcast GET', err));
-
-    tutorialData.getTutorialsData()
-      .then((tutorials) => {
-        this.setState({ tutorials });
-      })
-      .catch(err => console.error('error with podcast GET', err));
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('githubUsername');
-        writeBlogs();
+        this.displayView(this.state.view);
         this.setState({
           authed: true,
           github_username: users,
@@ -99,6 +76,18 @@ class App extends Component {
   isAuthenticated = (username) => {
     this.setState({ authed: true, github_username: username });
     sessionStorage.setItem('github_username', username);
+  }
+
+  deleteOne = (itemId, itemType) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.deleteItem(itemId, itemType)
+      .then(() => {
+        itemData.getItemsData(uid, itemType)
+          .then((items) => {
+            this.setState({ items });
+          });
+      })
+      .catch(err => console.error('error with delete single', err));
   }
 
   render() {
@@ -125,10 +114,9 @@ class App extends Component {
           <div className="col-8">
             <Form />
             <Portal
-            blogs={this.state.blogs}
-            podcasts={this.state.podcasts}
-            resources={this.state.resources}
-            tutorials={this.state.tutorials}
+            items={this.state.items}
+            deleteSingleItem={this.deleteOne}
+            displayView={this.displayView}
             />
           </div>
         </div>
