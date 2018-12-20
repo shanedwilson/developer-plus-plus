@@ -12,10 +12,11 @@ class Portal extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(itemShape),
     deleteSingleItem: PropTypes.func,
+    displayView: PropTypes.func,
   }
 
   render() {
-    const { items, deleteSingleItem } = this.props;
+    const { items, deleteSingleItem, displayView } = this.props;
 
     const itemComponents = items.map(item => (
       <Item
@@ -27,7 +28,7 @@ class Portal extends React.Component {
 
     return (
       <div className="portal mx-auto mt-5">
-        <PortalNavbar />
+        <PortalNavbar displayView={displayView}/>
         <ul>{itemComponents}</ul>
       </div>
     );

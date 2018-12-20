@@ -1,17 +1,15 @@
 import React from 'react';
-
-import authRequests from '../../helpers/data/authRequests';
-import itemData from '../../helpers/data/itemData';
+import PropTypes from 'prop-types';
 
 class PortalNavbar extends React.Component {
+  static propTypes = {
+    view: PropTypes.string,
+  }
+
   portalNavEvent = (e) => {
     e.preventDefault();
-    const uid = authRequests.getCurrentUid();
-    const itemType = e.target.id;
-    itemData.getItemsData(uid, itemType)
-      .then((items) => {
-        this.setState({ items });
-      });
+    const view = e.target.id;
+    this.props.displayView(view);
   };
 
   render() {

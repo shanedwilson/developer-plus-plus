@@ -11,10 +11,6 @@ import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
 
 import itemData from '../helpers/data/itemData';
-// import podcastData from '../helpers/data/podcastData';
-// import resourceData from '../helpers/data/resourceData';
-// import tutorialData from '../helpers/data/tutorialData';
-
 
 import './App.scss';
 import authRequests from '../helpers/data/authRequests';
@@ -96,6 +92,15 @@ class App extends Component {
       .catch(err => console.error('error with delete single', err));
   }
 
+  displayView = (clickedView) => {
+    const uid = authRequests.getCurrentUid();
+    this.setState({ view: clickedView });
+    itemData.getItemsData(uid, this.state.view)
+      .then((items) => {
+        this.setState({ items });
+      });
+  };
+
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -122,6 +127,7 @@ class App extends Component {
             <Portal
             items={this.state.items}
             deleteSingleItem={this.deleteOne}
+            displayView={this.displayView}
             />
           </div>
         </div>
