@@ -25,7 +25,7 @@ class Item extends React.Component {
         <span className="col-5">{item.name}</span>
         <span className="col-5">{item.url}</span>
         <button className="btn btn-danger" onClick={this.deleteEvent}>
-          <i className="fas fa-trash-alt"></i>
+          <i className="fas fa-trash-alt" />
         </button>
       </li>
     );
