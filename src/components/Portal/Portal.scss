@@ -1,5 +1,12 @@
+@import '../../styles/_variables';
+
 .portal {
   width: 90%;
   height: 50vh;
   overflow: scroll;
+  border: solid $lightGray;
+}
+
+.item-div {
+  align-content: center;
 }

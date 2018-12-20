@@ -1,11 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+
+import './PortalNavbar.scss';
 
 class PortalNavbar extends React.Component {
-  // static propTypes = {
-  //   view: PropTypes.string,
-  // }
-
   portalNavEvent = (e) => {
     e.preventDefault();
     e.target.classList.toggle('active');
@@ -15,7 +12,7 @@ class PortalNavbar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="nav-tabs">
         <ul className="nav nav-tabs">
           <li className="nav-item">
             <button className="nav-link active" id="blogs" onClick={this.portalNavEvent}>Blogs</button>

@@ -21,9 +21,9 @@ class Item extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <li className="item text-center">
-        <span className="col-7">{item.name}</span>
-        <span className="col-3">{item.url}</span>
+      <li className="item">
+        <span className="col-5">{item.name}</span>
+        <span className="col-5">{item.url}</span>
         <button className="btn btn-danger" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt"></i>
         </button>

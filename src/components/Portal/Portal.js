@@ -27,9 +27,11 @@ class Portal extends React.Component {
     ));
 
     return (
-      <div className="portal mx-auto mt-5">
+      <div className="portal mt-5">
         <PortalNavbar displayView={displayView}/>
-        <ul>{itemComponents}</ul>
+        <div className="item-div">
+          <ul className="mt-2">{itemComponents}</ul>
+        </div>
       </div>
     );
   }
