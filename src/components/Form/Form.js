@@ -19,9 +19,11 @@ class Form extends React.Component {
 
   state = {
     newItem: defaultItem,
+    selectedOption: '',
   }
 
   formFieldStringState = (name, e) => {
+    console.log(name);
     e.preventDefault();
     const tempItem = { ...this.state.newItem };
     tempItem[name] = e.target.value;
@@ -31,6 +33,22 @@ class Form extends React.Component {
   nameChange = e => this.formFieldStringState('name', e);
 
   urlChange = e => this.formFieldStringState('url', e);
+
+  // blogRadioChange = e => this.formFieldBooleanState('blogs', e);
+
+  // tutorialRadioChange = e => this.formFieldBooleanState('tutorials', e);
+
+  // resourceRadioChange = e => this.formFieldBooleanState('resources', e);
+
+  // podcastRadioChange = e => this.formFieldBooleanState('podcasts', e);
+
+  handleOptionChange = (e) => {
+    // const key = 'type';
+    const tempItem = { ...this.state.newItem };
+    tempItem.type = e.target.value;
+    this.setState({ newItem: tempItem });
+    console.log(tempItem);
+  }
 
   formSubmit = (e) => {
     e.preventDefault();
@@ -82,20 +100,48 @@ class Form extends React.Component {
         </div>
         <div className="col-3 radio radio-buttons btn-group-vertical btn-group-toggle">
           <div className="custom-control custom-radio">
-            <input type="radio" id="blogRadio" name="customRadio" className="custom-control-input" />
+            <input type="radio"
+              value="blogs"
+              id="blogRadio"
+              name="customRadio"
+              className="custom-control-input"
+              checked={this.state.selectedOption === 'blogs'}
+              onChange={this.handleOptionChange}
+            />
             <label className="custom-control-label" htmlFor="blogRadio">Blogs</label>
           </div>
           <div className="custom-control custom-radio">
-            <input type="radio" id="tutorialRadio" name="customRadio" className="custom-control-input" />
+            <input type="radio"
+              value="tutorials"
+              id="tutorialRadio"
+              name="customRadio"
+              className="custom-control-input"
+              checked={this.state.selectedOption === 'tutorials'}
+              onChange={this.handleOptionChange}
+            />
             <label className="custom-control-label" htmlFor="tutorialRadio">Tutorials</label>
           </div>
           <div className="custom-control custom-radio">
-            <input type="radio" id="customRadio3" name="customRadio" className="custom-control-input" />
-            <label className="custom-control-label" htmlFor="customRadio3">Resources</label>
+            <input type="radio"
+              value="resources"
+              id="resourceRadio"
+              name="customRadio"
+              className="custom-control-input"
+              checked={this.state.selectedOption === 'resources'}
+              onChange={this.handleOptionChange}
+            />
+            <label className="custom-control-label" htmlFor="resourceRadio">Resources</label>
           </div>
           <div className="custom-control custom-radio">
-            <input type="radio" id="customRadio4" name="customRadio" className="custom-control-input" />
-            <label className="custom-control-label" htmlFor="customRadio4">Podcasts</label>
+            <input type="radio"
+              value="podcasts"
+              id="podcastRadio"
+              name="customRadio"
+              className="custom-control-input"
+              checked={this.state.selectedOption === 'podcasts'}
+              onChange={this.handleOptionChange}
+            />
+            <label className="custom-control-label" htmlFor="podcastRadio">Podcasts</label>
           </div>
         </div>
         <button type="submit" className="btn add-btn btn-success my-5">
