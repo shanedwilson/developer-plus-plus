@@ -1,15 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class PortalNavbar extends React.Component {
-  static propTypes = {
-    view: PropTypes.string,
-  }
+  // static propTypes = {
+  //   view: PropTypes.string,
+  // }
 
   portalNavEvent = (e) => {
     e.preventDefault();
-    const view = e.target.id;
-    this.props.displayView(view);
+    e.target.classList.toggle('active');
+    const selectedView = e.target.id;
+    this.props.displayView(selectedView);
   };
 
   render() {
@@ -17,10 +18,10 @@ class PortalNavbar extends React.Component {
       <div>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <button className="nav-link active" id="tutorials" onClick={this.portalNavEvent}>Tutorials</button>
+            <button className="nav-link active" id="blogs" onClick={this.portalNavEvent}>Blogs</button>
           </li>
           <li className="nav-item">
-            <button className="nav-link" id="blogs" onClick={this.portalNavEvent}>Blogs</button>
+            <button className="nav-link" id="tutorials" onClick={this.portalNavEvent}>Tutorials</button>
           </li>
           <li className="nav-item">
             <button className="nav-link" id="resources" onClick={this.portalNavEvent}>Resources</button>

@@ -25,6 +25,14 @@ class App extends Component {
     view: 'blogs',
   }
 
+  displayView = (clickedView) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.getItemsData(uid, clickedView)
+      .then((items, selectedView) => {
+        this.setState({ items, view: selectedView });
+      });
+  };
+
   componentDidUpdate() {
     if (this.state.github_username && this.state.profile.length === 0) {
       githubData.getUser(this.state.github_username)
@@ -45,20 +53,10 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    const writeItems = () => {
-      const uid = authRequests.getCurrentUid();
-      const selectedView = this.state.view;
-      itemData.getItemsData(uid, selectedView)
-        .then((items) => {
-          this.setState({ items });
-        })
-        .catch(err => console.error('error with items GET', err));
-    };
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('githubUsername');
-        writeItems();
+        this.displayView(this.state.view);
         this.setState({
           authed: true,
           github_username: users,
@@ -91,15 +89,6 @@ class App extends Component {
       })
       .catch(err => console.error('error with delete single', err));
   }
-
-  displayView = (clickedView) => {
-    const uid = authRequests.getCurrentUid();
-    this.setState({ view: clickedView });
-    itemData.getItemsData(uid, this.state.view)
-      .then((items) => {
-        this.setState({ items });
-      });
-  };
 
   render() {
     const logoutClickEvent = () => {
