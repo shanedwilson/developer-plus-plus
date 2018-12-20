@@ -49,7 +49,6 @@ class Form extends React.Component {
   }
 
   formSubmit = (e) => {
-    console.log('CLICKED');
     e.preventDefault();
     const { onSubmit } = this.props;
     const myItem = { ...this.state.newItem };
