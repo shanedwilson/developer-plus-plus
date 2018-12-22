@@ -23,6 +23,7 @@ class App extends Component {
     items: [],
     github_username: '',
     view: 'blogs',
+    commitCount: 0,
   }
 
   displayView = (clickedView) => {
@@ -43,8 +44,8 @@ class App extends Component {
     }
     if (this.state.github_username && this.state.profile.length === 0) {
       githubData.getUserEvents(this.state.github_username)
-        .then((userEvents) => {
-          this.setState({ userEvents });
+        .then((commitCount) => {
+          this.setState({ commitCount });
         })
         .catch(err => console.error('error with github user events GET', err));
     }
@@ -55,7 +56,7 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const users = sessionStorage.getItem('githubUsername');
+        const users = sessionStorage.getItem('github_username');
         this.displayView(this.state.view);
         this.setState({
           authed: true,
@@ -123,8 +124,11 @@ class App extends Component {
     return (
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent} />
-        <div className="row">
-          <Profile profile={this.state.profile}/>
+        <div className="row justify-content-around">
+          <Profile
+          profile={this.state.profile}
+          commitCount={this.state.commitCount}
+          />
           <div className="col-8">
             <Form onSubmit={this.formSubmitEvent} />
             <Portal
