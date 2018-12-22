@@ -91,6 +91,18 @@ class App extends Component {
       .catch(err => console.error('error with delete single', err));
   }
 
+  updateOne = (itemId, itemType, isDone) => {
+    const uid = authRequests.getCurrentUid();
+    itemData.updateIsDone(itemId, itemType, isDone)
+      .then(() => {
+        itemData.getItemsData(uid, itemType)
+          .then((items) => {
+            this.setState({ items });
+          });
+      })
+      .catch(err => console.error('error with delete single', err));
+  }
+
   formSubmitEvent = (newItem, itemType) => {
     const uid = authRequests.getCurrentUid();
     itemData.postItem(newItem, itemType)
@@ -135,6 +147,7 @@ class App extends Component {
             items={this.state.items}
             deleteSingleItem={this.deleteOne}
             displayView={this.displayView}
+            updateOne={this.updateOne}
             />
           </div>
         </div>
