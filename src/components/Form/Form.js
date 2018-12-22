@@ -33,16 +33,7 @@ class Form extends React.Component {
 
   urlChange = e => this.formFieldStringState('url', e);
 
-  // blogRadioChange = e => this.formFieldBooleanState('blogs', e);
-
-  // tutorialRadioChange = e => this.formFieldBooleanState('tutorials', e);
-
-  // resourceRadioChange = e => this.formFieldBooleanState('resources', e);
-
-  // podcastRadioChange = e => this.formFieldBooleanState('podcasts', e);
-
   handleOptionChange = (e) => {
-    // const key = 'type';
     const tempItem = { ...this.state.newItem };
     tempItem.type = e.target.value;
     this.setState({ newItem: tempItem });
