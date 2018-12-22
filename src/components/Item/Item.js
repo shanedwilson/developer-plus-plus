@@ -27,6 +27,10 @@ class Item extends React.Component {
         <button className="btn btn-danger" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt" />
         </button>
+        <div className="custom-control custom-checkbox ml-1">
+          <input type="checkbox" className="custom-control-input" id="customCheck1" />
+          <label className="custom-control-label" htmlFor="customCheck1">Done!</label>
+        </div>
       </li>
     );
   }
