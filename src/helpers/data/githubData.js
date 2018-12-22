@@ -13,7 +13,11 @@ const getUser = username => new Promise((resolve, reject) => {
 const getUserEvents = username => new Promise((resolve, reject) => {
   axios.get(`https://api.github.com/users/${username}/events/public`)
     .then((res) => {
-      const commitCount = res.data.filter(event => event.type === 'PushEvent').length;
+      let commitCount = 0;
+      const pushEvents = res.data.filter(event => event.type === 'PushEvent');
+      pushEvents.forEach((pushEvent) => {
+        commitCount += pushEvent.payload.commits.length;
+      });
       resolve(commitCount);
     })
     .catch((err) => {

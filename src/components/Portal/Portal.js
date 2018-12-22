@@ -12,17 +12,27 @@ class Portal extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(itemShape),
     deleteSingleItem: PropTypes.func,
+    updateOne: PropTypes.func,
     displayView: PropTypes.func,
+    isDone: PropTypes.bool,
   }
 
   render() {
-    const { items, deleteSingleItem, displayView } = this.props;
+    const {
+      items,
+      deleteSingleItem,
+      updateOne,
+      displayView,
+      isDone,
+    } = this.props;
 
     const itemComponents = items.map(item => (
       <Item
         item={item}
         key={item.id}
         deleteSingleItem={deleteSingleItem}
+        isDone={isDone}
+        updateOne={updateOne}
       />
     ));
 

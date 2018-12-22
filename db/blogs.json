@@ -3,24 +3,28 @@
     "name" : "CodePen Blog",
     "url" : "https://blog.codepen.io/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
-    "type" : "blogs"
+    "type" : "blogs",
+    "isDone" : false
   },
   "blog1" : {
     "name" : "CSS Tricks",
     "url" : "https://css-tricks.com/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
-    "type" : "blogs"
+    "type" : "blogs",
+    "isDone" : false
   },
   "blog2" : {
     "name" : "The Daily WTF",
     "url" : "http://thedailywtf.com/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
-    "type" : "blogs"
+    "type" : "blogs",
+    "isDone" : false    
   },
   "blog3" : {
     "name" : "Not Mine",
     "url" : "http://google.com",
     "uid" : "1234",
-    "type" : "blogs"
+    "type" : "blogs",
+    "isDone" : false    
   }
 }

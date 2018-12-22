@@ -23,5 +23,11 @@ const deleteItem = (itemId, itemType) => axios.delete(`${firebaseUrl}/${itemType
 
 const postItem = (item, itemType) => axios.post(`${firebaseUrl}/${itemType}/.json`, item);
 
+const updateIsDone = (itemId, itemType, isDone) => axios.patch(`${firebaseUrl}/${itemType}/${itemId}.json`, { isDone });
 
-export default { getItemsData, deleteItem, postItem };
+export default {
+  getItemsData,
+  deleteItem,
+  postItem,
+  updateIsDone,
+};
