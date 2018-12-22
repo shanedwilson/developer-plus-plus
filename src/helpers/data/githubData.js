@@ -16,11 +16,7 @@ const getUserEvents = username => new Promise((resolve, reject) => {
       let commitCount = 0;
       const pushEvents = res.data.filter(event => event.type === 'PushEvent');
       pushEvents.forEach((pushEvent) => {
-        pushEvent.payload.commits.forEach((commit) => {
-          if (commit.distinct === true) {
-            commitCount += pushEvent.payload.commits.length;
-          }
-        });
+        commitCount += pushEvent.payload.commits.length;
       });
       resolve(commitCount);
     })
