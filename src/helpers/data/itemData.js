@@ -14,9 +14,7 @@ const getItemsData = (uid, item) => new Promise((resolve, reject) => {
           itemsArray.push(res.data[key]);
         });
       }
-      console.log(itemsArray);
       const sortedItems = itemsArray.sort((a, b) => a.isDone - b.isDone);
-      console.log(sortedItems);
       resolve(sortedItems);
     })
     .catch(err => reject(err));
