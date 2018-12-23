@@ -14,7 +14,8 @@ const getItemsData = (uid, item) => new Promise((resolve, reject) => {
           itemsArray.push(res.data[key]);
         });
       }
-      resolve(itemsArray);
+      const sortedItems = itemsArray.sort((a, b) => a.isDone - b.isDone);
+      resolve(sortedItems);
     })
     .catch(err => reject(err));
 });
