@@ -53,7 +53,7 @@ class Form extends React.Component {
 
     return (
       <div >
-        <form className="row form-container mx-auto border border-dark rounded mt-5" onSubmit={this.formSubmit}>
+        <form className="row form-container border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
           <div className="form col-8 mt-4">
             <div className="col-auto">
               <label htmlFor="name" className="sr-only">Name</label>
