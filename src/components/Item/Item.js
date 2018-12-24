@@ -36,8 +36,8 @@ class Item extends React.Component {
           <i className="fas fa-trash-alt" />
         </button>
         <div className="checkbox-div ml-1">
-          <input type="checkbox" checked={item.isDone} id={item.id} onChange={this.checkEvent} />
-          <label className="checkbox-label" htmlFor={item.id}>Done!</label>
+          <input type="checkbox" checked={item.isDone} onChange={this.checkEvent} />
+          <label className="checkbox-label ml-1">Done!</label>
         </div>
       </li>
     );

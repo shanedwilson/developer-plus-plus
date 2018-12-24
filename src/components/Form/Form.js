@@ -19,7 +19,6 @@ class Form extends React.Component {
 
   state = {
     newItem: defaultItem,
-    selectedOption: '',
   }
 
   formFieldStringState = (name, e) => {
@@ -54,9 +53,9 @@ class Form extends React.Component {
 
     return (
       <div >
-        <form className="row form-container mx-auto border border-dark rounded mt-5" onSubmit={this.formSubmit}>
+        <form className="row form-container border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
           <div className="form col-8 mt-4">
-            <div className="col-auto">
+            <div className="col-auto form-lines p-0">
               <label htmlFor="name" className="sr-only">Name</label>
               <div className="input-group mb-2">
                 <div className="input-group-prepend">
@@ -72,7 +71,7 @@ class Form extends React.Component {
                 </input>
               </div>
             </div>
-            <div className="col-auto">
+            <div className="col-auto form-lines p-0">
               <label htmlFor="link" className="sr-only">Link</label>
               <div className="input-group mb-2">
                 <div className="input-group-prepend">
@@ -90,13 +89,12 @@ class Form extends React.Component {
             </div>
           </div>
           <div className="col-3 radio radio-buttons btn-group-vertical btn-group-toggle">
-            <div className="custom-control custom-radio">
+            <div className="custom-control custom-radio radio-primary">
               <input type="radio"
                 value="blogs"
                 id="blogRadio"
                 name="customRadio"
                 className="custom-control-input"
-                checked={this.state.selectedOption === 'blogs'}
                 onChange={this.handleOptionChange}
               />
               <label className="custom-control-label" htmlFor="blogRadio">Blogs</label>
@@ -107,7 +105,6 @@ class Form extends React.Component {
                 id="tutorialRadio"
                 name="customRadio"
                 className="custom-control-input"
-                checked={this.state.selectedOption === 'tutorials'}
                 onChange={this.handleOptionChange}
               />
               <label className="custom-control-label" htmlFor="tutorialRadio">Tutorials</label>
@@ -118,7 +115,6 @@ class Form extends React.Component {
                 id="resourceRadio"
                 name="customRadio"
                 className="custom-control-input"
-                checked={this.state.selectedOption === 'resources'}
                 onChange={this.handleOptionChange}
               />
               <label className="custom-control-label" htmlFor="resourceRadio">Resources</label>
@@ -129,7 +125,6 @@ class Form extends React.Component {
                 id="podcastRadio"
                 name="customRadio"
                 className="custom-control-input"
-                checked={this.state.selectedOption === 'podcasts'}
                 onChange={this.handleOptionChange}
               />
               <label className="custom-control-label" htmlFor="podcastRadio">Podcasts</label>

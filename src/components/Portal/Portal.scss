@@ -5,8 +5,10 @@
   height: 50vh;
   overflow: scroll;
   border: solid $lightGray;
+  background-color: $darkGray;
 }
 
 .item-div {
   align-content: center;
+  margin-top: 5%;
 }
