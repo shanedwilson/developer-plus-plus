@@ -7,7 +7,7 @@ class Profile extends React.Component {
     return (
       <div className="profile col-3 mt-5 mx-auto">
         <div className="card">
-          <img className="img-fluid" src={profile.avatar_url} alt="github pic"></img>
+          <img className="img-fluid p-2" src={profile.avatar_url} alt="github pic"></img>
           <h2 className="card-title">{profile.login}</h2>
           <p className="card-text">{profile.bio}</p>
           <a href={profile.html_url} className="_blank">github.com/shanedwilson</a>

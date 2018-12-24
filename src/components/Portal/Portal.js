@@ -24,6 +24,7 @@ class Portal extends React.Component {
       updateOne,
       displayView,
       isDone,
+      view,
     } = this.props;
 
     const itemComponents = items.map(item => (
@@ -38,7 +39,10 @@ class Portal extends React.Component {
 
     return (
       <div className="portal mt-5 mx-auto">
-        <PortalNavbar displayView={displayView}/>
+        <PortalNavbar
+          displayView={displayView}
+          view={view}
+          />
         <div className="item-div">
           <ul className="mt-2">{itemComponents}</ul>
         </div>

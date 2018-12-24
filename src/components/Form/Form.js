@@ -55,7 +55,7 @@ class Form extends React.Component {
       <div >
         <form className="row form-container border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
           <div className="form col-8 mt-4">
-            <div className="col-auto">
+            <div className="col-auto form-lines p-0">
               <label htmlFor="name" className="sr-only">Name</label>
               <div className="input-group mb-2">
                 <div className="input-group-prepend">
@@ -71,7 +71,7 @@ class Form extends React.Component {
                 </input>
               </div>
             </div>
-            <div className="col-auto">
+            <div className="col-auto form-lines p-0">
               <label htmlFor="link" className="sr-only">Link</label>
               <div className="input-group mb-2">
                 <div className="input-group-prepend">
