@@ -1,5 +1,8 @@
+@import '../../styles/_variables';
+
 .form-container {
   width: 75%;
+  background-color: $darkGray;
 }
 
 .add-btn {
