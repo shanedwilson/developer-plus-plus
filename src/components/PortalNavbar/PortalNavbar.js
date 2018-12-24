@@ -22,11 +22,6 @@ class PortalNavbar extends React.Component {
     }
   }
 
-  state = {
-    active: false,
-    activeMenuItem: 'blogs',
-  }
-
   portalNavEvent = (e) => {
     e.preventDefault();
     const selectedView = e.target.id;
