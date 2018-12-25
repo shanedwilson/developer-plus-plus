@@ -25,7 +25,7 @@ class MyNavbar extends React.Component {
     const { isAuthed, logoutClickEvent } = this.props;
     return (
       <div className="my-navbar">
-      <Navbar color="dark" dark expand="md">
+      <Navbar className="navigation" dark expand="md">
           <NavbarBrand href="/">Developer++</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
