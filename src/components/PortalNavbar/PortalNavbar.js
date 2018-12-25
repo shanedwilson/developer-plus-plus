@@ -1,33 +1,76 @@
 import React from 'react';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import classnames from 'classnames';
 
 import './PortalNavbar.scss';
 
 class PortalNavbar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      activeTab: 'blogs',
+    };
+  }
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
+  }
+
   portalNavEvent = (e) => {
     e.preventDefault();
-    e.target.classList.toggle('active');
     const selectedView = e.target.id;
     this.props.displayView(selectedView);
+    this.toggle(selectedView);
   };
 
   render() {
     return (
-      <div className="nav-tabs">
-        <ul className="nav nav-tabs">
-          <li className="nav-item">
-            <button className="nav-link active" id="blogs" onClick={this.portalNavEvent}>Blogs</button>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link" id="tutorials" onClick={this.portalNavEvent}>Tutorials</button>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link" id="resources" onClick={this.portalNavEvent}>Resources</button>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link" id="podcasts" onClick={this.portalNavEvent}>Podcasts</button>
-          </li>
-        </ul>
-      </div>
+      <div className="my-navbar nav-tabs">
+        <Nav tabs color="light" light>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'blogs' })}
+              id="blogs"
+              onClick={this.portalNavEvent}
+            >
+              Blogs
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'tutorials' })}
+              id="tutorials"
+              onClick={this.portalNavEvent}
+              >
+              Tutorials
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'podcasts' })}
+              id="podcasts"
+              onClick={this.portalNavEvent}
+            >
+              Podcasts
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'resources' })}
+              id="resources"
+              onClick={this.portalNavEvent}
+            >
+              Resources
+            </NavLink>
+          </NavItem>
+        </Nav>
+        </div>
     );
   }
 }

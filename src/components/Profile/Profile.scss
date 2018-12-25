@@ -1,5 +1,12 @@
+@import '../../styles/_variables';
+
 .profile {
   img {
     overflow: hidden;
+    box-shadow: $lightGray 3px 0 10px;
   }
+  .card {
+    background-color: $darkGray;
+  }
+  text-shadow: $lightGray 3px 0 10px;
 }
