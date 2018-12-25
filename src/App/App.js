@@ -148,6 +148,7 @@ class App extends Component {
             deleteSingleItem={this.deleteOne}
             displayView={this.displayView}
             updateOne={this.updateOne}
+            view={this.view}
             />
           </div>
         </div>
