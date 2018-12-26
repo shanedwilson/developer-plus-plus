@@ -32,7 +32,7 @@ class PortalNavbar extends React.Component {
   render() {
     return (
       <div className="my-navbar nav-tabs">
-        <Nav tabs color="light" light>
+        <Nav tabs color="light">
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === 'blogs' })}
@@ -53,20 +53,20 @@ class PortalNavbar extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === 'podcasts' })}
-              id="podcasts"
-              onClick={this.portalNavEvent}
-            >
-              Podcasts
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
               className={classnames({ active: this.state.activeTab === 'resources' })}
               id="resources"
               onClick={this.portalNavEvent}
             >
               Resources
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === 'podcasts' })}
+              id="podcasts"
+              onClick={this.portalNavEvent}
+            >
+              Podcasts
             </NavLink>
           </NavItem>
         </Nav>

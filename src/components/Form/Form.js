@@ -23,7 +23,6 @@ class Form extends React.Component {
   }
 
   formFieldStringState = (name, e) => {
-    e.preventDefault();
     const tempItem = { ...this.state.newItem };
     tempItem[name] = e.target.value;
     this.setState({ newItem: tempItem });
@@ -34,9 +33,6 @@ class Form extends React.Component {
   urlChange = e => this.formFieldStringState('url', e);
 
   handleOptionChange = (e) => {
-    // const tempItem = { ...this.state.newItem };
-    // tempItem.type = e.target.value;
-    // this.setState({ newItem: tempItem });
     this.setState({ radioState: e.target.value });
     this.formFieldStringState('type', e);
   }
@@ -109,7 +105,7 @@ class Form extends React.Component {
                 id="tutorialRadio"
                 name="formRadio"
                 className="form-check-input"
-                checked={radioState === 'tutorial'}
+                checked={radioState === 'tutorials'}
                 onChange={this.handleOptionChange}
               />
               <label className="form-check-label" htmlFor="tutorialRadio">Tutorials</label>
