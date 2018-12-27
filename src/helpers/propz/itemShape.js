@@ -5,6 +5,8 @@ const itemShape = PropTypes.shape({
   url: PropTypes.string.isRequired,
   uid: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  isDone: PropTypes.bool.isRequired,
+  doneDate: PropTypes.number.isRequired,
 });
 
 export default itemShape;

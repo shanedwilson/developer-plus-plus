@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import itemShape from '../../helpers/propz/itemShape';
 
@@ -23,7 +24,9 @@ class Item extends React.Component {
     e.preventDefault();
     const { updateOne, item } = this.props;
     const isDone = e.target.checked;
-    updateOne(item.id, item.type, isDone);
+    const doneDate = moment().unix();
+    console.log(item);
+    updateOne(item.id, item.type, isDone, doneDate);
   }
 
   render() {

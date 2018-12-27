@@ -91,9 +91,9 @@ class App extends Component {
       .catch(err => console.error('error with delete single', err));
   }
 
-  updateOne = (itemId, itemType, isDone) => {
+  updateOne = (itemId, itemType, isDone, doneDate) => {
     const uid = authRequests.getCurrentUid();
-    itemData.updateIsDone(itemId, itemType, isDone)
+    itemData.updateIsDone(itemId, itemType, isDone, doneDate)
       .then(() => {
         itemData.getItemsData(uid, itemType)
           .then((items) => {
