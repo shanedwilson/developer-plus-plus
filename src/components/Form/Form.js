@@ -19,10 +19,10 @@ class Form extends React.Component {
 
   state = {
     newItem: defaultItem,
+    radioState: false,
   }
 
   formFieldStringState = (name, e) => {
-    e.preventDefault();
     const tempItem = { ...this.state.newItem };
     tempItem[name] = e.target.value;
     this.setState({ newItem: tempItem });
@@ -33,9 +33,8 @@ class Form extends React.Component {
   urlChange = e => this.formFieldStringState('url', e);
 
   handleOptionChange = (e) => {
-    const tempItem = { ...this.state.newItem };
-    tempItem.type = e.target.value;
-    this.setState({ newItem: tempItem });
+    this.setState({ radioState: e.target.value });
+    this.formFieldStringState('type', e);
   }
 
   formSubmit = (e) => {
@@ -45,11 +44,11 @@ class Form extends React.Component {
     const itemType = myItem.type;
     myItem.uid = authRequests.getCurrentUid();
     onSubmit(myItem, itemType);
-    this.setState({ newItem: defaultItem });
+    this.setState({ newItem: defaultItem, radioState: false });
   }
 
   render() {
-    const { newItem } = this.state;
+    const { newItem, radioState } = this.state;
 
     return (
       <div >
@@ -88,46 +87,50 @@ class Form extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-3 radio radio-buttons btn-group-vertical btn-group-toggle">
-            <div className="custom-control custom-radio radio-primary">
+          <div className="col-3 form-group btn-group-vertical">
+            <div className="form-check">
               <input type="radio"
                 value="blogs"
                 id="blogRadio"
-                name="customRadio"
-                className="custom-control-input"
+                name="formRadio"
+                className="form-check-input"
+                checked={radioState === 'blogs'}
                 onChange={this.handleOptionChange}
               />
-              <label className="custom-control-label" htmlFor="blogRadio">Blogs</label>
+              <label className="form-check-label" htmlFor="blogRadio">Blogs</label>
             </div>
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input type="radio"
                 value="tutorials"
                 id="tutorialRadio"
-                name="customRadio"
-                className="custom-control-input"
+                name="formRadio"
+                className="form-check-input"
+                checked={radioState === 'tutorials'}
                 onChange={this.handleOptionChange}
               />
-              <label className="custom-control-label" htmlFor="tutorialRadio">Tutorials</label>
+              <label className="form-check-label" htmlFor="tutorialRadio">Tutorials</label>
             </div>
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input type="radio"
                 value="resources"
                 id="resourceRadio"
-                name="customRadio"
-                className="custom-control-input"
+                name="formRadio"
+                className="form-check-input"
+                checked={radioState === 'resources'}
                 onChange={this.handleOptionChange}
               />
-              <label className="custom-control-label" htmlFor="resourceRadio">Resources</label>
+              <label className="form-check-label" htmlFor="resourceRadio">Resources</label>
             </div>
-            <div className="custom-control custom-radio">
+            <div className="form-check">
               <input type="radio"
                 value="podcasts"
                 id="podcastRadio"
-                name="customRadio"
-                className="custom-control-input"
+                name="formRadio"
+                className="form-check-input"
+                checked={radioState === 'podcasts'}
                 onChange={this.handleOptionChange}
               />
-              <label className="custom-control-label" htmlFor="podcastRadio">Podcasts</label>
+              <label className="form-check-label" htmlFor="podcastRadio">Podcasts</label>
             </div>
           </div>
           <button type="submit" className="btn add-btn btn-success my-5">
