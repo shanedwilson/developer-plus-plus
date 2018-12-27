@@ -4,7 +4,8 @@
     "url" : "https://reactforbeginners.com/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
     "type" : "tutorials",
-    "isDone" : false      
+    "isDone" : false,
+    "doneDate" : 0
     },
 
     "tutorial1" : {
@@ -12,7 +13,8 @@
     "url" : "http://www.asmarterwaytolearn.com/js/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
     "type" : "tutorials",
-    "isDone" : false     
+    "isDone" : false,
+    "doneDate" : 0
     },
 
   "tutorial2" : {
@@ -20,6 +22,7 @@
     "url" : "https://liquorbarn.com/",
     "uid" : "0VWIzBFhNIVNyUVPQsQI8ikleiq2",
     "type" : "tutorials",
-    "isDone" : false
+    "isDone" : false,
+    "doneDate" : 0
     }
 }
