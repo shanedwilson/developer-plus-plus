@@ -13,11 +13,10 @@ const currentDate = moment().format();
 
 class Graph extends React.Component {
   render() {
-    const { githubGraphData } = this.props;
-    console.log(githubGraphData);
+    const { githubGraphData, allItems } = this.props;
+    console.log(allItems);
     return (
       <LineChart width={500} height={300}>
-        <h2>Graph Here {currentDate}</h2>
         <XAxis dataKey="date"/>
         <YAxis/>
         <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>

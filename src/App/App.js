@@ -43,7 +43,6 @@ class App extends Component {
       .then((allItems) => {
         this.setState({ allItems });
       });
-    console.log(this.state.allItems);
   }
 
   componentDidUpdate() {
@@ -77,10 +76,12 @@ class App extends Component {
       if (user) {
         const users = sessionStorage.getItem('github_username');
         this.displayView(this.state.view);
-        this.getAllItems();
+        const allItems = this.getAllItems();
         this.setState({
           authed: true,
           github_username: users,
+          allItems,
+
         });
       } else {
         this.setState({
@@ -173,6 +174,7 @@ class App extends Component {
         </div>
         <div className="graph-container mt-5">
           <Graph
+          allItems={this.state.allItems}
           githubGraphData={this.githubGraphData}
           />
         </div>

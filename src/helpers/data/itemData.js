@@ -26,7 +26,6 @@ const getAllItemsData = uid => new Promise((resolve, reject) => {
     .then((res) => {
       const combinedData = Object.assign({}, res.data.blogs,
         res.data.podcasts, res.data.tutorials, res.data.resources);
-      console.log(combinedData);
       const allItemsArray = [];
       if (combinedData !== null) {
         Object.keys(combinedData).forEach((key) => {
@@ -36,7 +35,6 @@ const getAllItemsData = uid => new Promise((resolve, reject) => {
           }
         });
       }
-      console.log(allItemsArray);
       resolve(allItemsArray);
     })
     .catch(err => reject(err));
