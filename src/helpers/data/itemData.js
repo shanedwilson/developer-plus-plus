@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import apiKeys from '../apiKeys';
 
 const firebaseUrl = apiKeys.firebaseConfig.databaseURL;
@@ -35,6 +36,7 @@ const getAllItemsData = uid => new Promise((resolve, reject) => {
           }
         });
       }
+      allItemsArray.sort((a, b) => (moment(a.doneDate).isAfter(moment(b.doneDate)) ? 1 : -1));
       resolve(allItemsArray);
     })
     .catch(err => reject(err));

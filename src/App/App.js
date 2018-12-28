@@ -23,9 +23,10 @@ class App extends Component {
     profile: [],
     items: [],
     github_username: '',
+    githubToken: '',
     view: 'blogs',
     commitCount: 0,
-    githubGraphData: [],
+    githubChartData: [],
     allItems: [],
   }
 
@@ -47,26 +48,26 @@ class App extends Component {
 
   componentDidUpdate() {
     if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUser(this.state.github_username)
+      githubData.getUser(this.state.github_username, this.state.githubToken)
         .then((profile) => {
           this.setState({ profile });
         })
         .catch(err => console.error('error with github user GET', err));
     }
     if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUserEvents(this.state.github_username)
+      githubData.getUserEvents(this.state.github_username, this.state.githubToken)
         .then((commitCount) => {
           this.setState({ commitCount });
         })
         .catch(err => console.error('error with github user events GET', err));
     }
-    // if (this.state.github_username && this.state.profile.length === 0) {
-    //   githubData.getGithubChartData(this.state.github_username)
-    //     .then((githubGraphData) => {
-    //       this.setState({ githubGraphData });
-    //     })
-    //     .catch(err => console.error('error with github user events GET', err));
-    // }
+    if (this.state.github_username && this.state.profile.length === 0) {
+      githubData.getGithubChartData(this.state.github_username, this.state.githubToken)
+        .then((githubChartData) => {
+          this.setState({ githubChartData });
+        })
+        .catch(err => console.error('error with github user events GET', err));
+    }
   }
 
   componentDidMount() {
@@ -75,11 +76,13 @@ class App extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('github_username');
+        const gitHubTokenStorage = sessionStorage.getItem('githubToken');
         this.displayView(this.state.view);
         const allItems = this.getAllItems();
         this.setState({
           authed: true,
           github_username: users,
+          githubToken: gitHubTokenStorage,
           allItems,
 
         });
@@ -95,10 +98,16 @@ class App extends Component {
     this.removeListener();
   }
 
-  isAuthenticated = (username) => {
-    this.setState({ authed: true, github_username: username });
+  isAuthenticated = (username, accessToken) => {
+    this.setState({
+      authed: true,
+      github_username: username,
+      githubToken: accessToken,
+    });
     sessionStorage.setItem('github_username', username);
+    sessionStorage.getItem('githubToken', accessToken);
   }
+
 
   deleteOne = (itemId, itemType) => {
     const uid = authRequests.getCurrentUid();
@@ -138,6 +147,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.githubToken);
     const logoutClickEvent = () => {
       authRequests.logoutUser();
       this.setState({ authed: false, github_username: '' });
@@ -175,7 +185,7 @@ class App extends Component {
         <div className="graph-container mt-5">
           <Graph
           allItems={this.state.allItems}
-          githubGraphData={this.githubGraphData}
+          githubChartData={this.githubChartData}
           />
         </div>
       </div>
