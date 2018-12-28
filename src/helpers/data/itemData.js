@@ -20,6 +20,29 @@ const getItemsData = (uid, item) => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getAllItemsData = uid => new Promise((resolve, reject) => {
+  axios
+    .get(`${firebaseUrl}/.json`)
+    .then((res) => {
+      const combinedData = Object.assign({}, res.data.blogs,
+        res.data.podcasts, res.data.tutorials, res.data.resources);
+      console.log(combinedData);
+      const allItemsArray = [];
+      if (combinedData !== null) {
+        Object.keys(combinedData).forEach((key) => {
+          combinedData[key].id = key;
+          if (combinedData[key].uid === uid) {
+            allItemsArray.push(combinedData[key]);
+          }
+        });
+      }
+      console.log(allItemsArray);
+      resolve(allItemsArray);
+    })
+    .catch(err => reject(err));
+});
+
+
 const deleteItem = (itemId, itemType) => axios.delete(`${firebaseUrl}/${itemType}/${itemId}.json`);
 
 const postItem = (item, itemType) => axios.post(`${firebaseUrl}/${itemType}/.json`, item);
@@ -31,4 +54,5 @@ export default {
   deleteItem,
   postItem,
   updateIsDone,
+  getAllItemsData,
 };

@@ -25,7 +25,6 @@ class Item extends React.Component {
     const { updateOne, item } = this.props;
     const isDone = e.target.checked;
     const doneDate = moment().unix();
-    console.log(item);
     updateOne(item.id, item.type, isDone, doneDate);
   }
 

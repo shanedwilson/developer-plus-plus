@@ -9,6 +9,7 @@ import MyNavbar from '../components/MyNavbar/MyNavbar';
 import Profile from '../components/Profile/Profile';
 import Form from '../components/Form/Form';
 import Portal from '../components/Portal/Portal';
+import Graph from '../components/Graph/Graph';
 
 import itemData from '../helpers/data/itemData';
 
@@ -24,6 +25,8 @@ class App extends Component {
     github_username: '',
     view: 'blogs',
     commitCount: 0,
+    githubGraphData: [],
+    allItems: [],
   }
 
   displayView = (clickedView) => {
@@ -33,6 +36,15 @@ class App extends Component {
         this.setState({ items, view: selectedView });
       });
   };
+
+  getAllItems = () => {
+    const uid = authRequests.getCurrentUid();
+    itemData.getAllItemsData(uid)
+      .then((allItems) => {
+        this.setState({ allItems });
+      });
+    console.log(this.state.allItems);
+  }
 
   componentDidUpdate() {
     if (this.state.github_username && this.state.profile.length === 0) {
@@ -49,6 +61,13 @@ class App extends Component {
         })
         .catch(err => console.error('error with github user events GET', err));
     }
+    // if (this.state.github_username && this.state.profile.length === 0) {
+    //   githubData.getGithubChartData(this.state.github_username)
+    //     .then((githubGraphData) => {
+    //       this.setState({ githubGraphData });
+    //     })
+    //     .catch(err => console.error('error with github user events GET', err));
+    // }
   }
 
   componentDidMount() {
@@ -58,6 +77,7 @@ class App extends Component {
       if (user) {
         const users = sessionStorage.getItem('github_username');
         this.displayView(this.state.view);
+        this.getAllItems();
         this.setState({
           authed: true,
           github_username: users,
@@ -116,7 +136,6 @@ class App extends Component {
       });
   }
 
-
   render() {
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -151,6 +170,11 @@ class App extends Component {
             view={this.view}
             />
           </div>
+        </div>
+        <div className="graph-container mt-5">
+          <Graph
+          githubGraphData={this.githubGraphData}
+          />
         </div>
       </div>
     );
