@@ -15,15 +15,17 @@ class Graph extends React.Component {
     githubUsername: PropTypes.string,
     githubToken: PropTypes.string,
     allItems: PropTypes.array,
-    githubChartData: PropTypes.array,
+    gitHubChartData: PropTypes.array,
     graphData: PropTypes.func,
   };
 
+
   render() {
-    const { githubChartData, graphData } = this.props;
+    const { gitHubChartData, graphData } = this.props;
+    console.log(gitHubChartData);
     graphData();
     return (
-      <LineChart width={1350} height={200} data={githubChartData}>
+      <LineChart width={1350} height={200} data={gitHubChartData}>
         <XAxis dataKey="date"/>
         <YAxis/>
         <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>

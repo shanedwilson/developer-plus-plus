@@ -89,14 +89,15 @@ class App extends Component {
           })
           .catch(err => console.error('error with github chart data GET', err));
       }
+      console.log(this.state.gitHubChartData)
     }
+
 
     componentDidUpdate() {
     }
 
     componentDidMount() {
       connection();
-
       this.removeListener = firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           const users = sessionStorage.getItem('githubUsername');
