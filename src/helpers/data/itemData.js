@@ -31,7 +31,7 @@ const getAllItemsData = uid => new Promise((resolve, reject) => {
       if (combinedData !== null) {
         Object.keys(combinedData).forEach((key) => {
           combinedData[key].id = key;
-          if (combinedData[key].uid === uid) {
+          if (combinedData[key].uid === uid && combinedData[key].isDone === true) {
             allItemsArray.push(combinedData[key]);
           }
         });

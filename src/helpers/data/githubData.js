@@ -2,8 +2,8 @@ import axios from 'axios';
 import moment from 'moment';
 import parse from 'parse-link-header';
 
-const getUser = (username, token) => new Promise((resolve, reject) => {
-  axios.get(`https://api.github.com/user/`, { headers: { Authorization: `token ${token}` } })
+const getUser = token => new Promise((resolve, reject) => {
+  axios.get('https://api.github.com/user', { headers: { Authorization: `token ${token}` } })
     .then((res) => {
       resolve(res.data);
     })
@@ -27,21 +27,23 @@ const getUserEvents = (username, token) => new Promise((resolve, reject) => {
     });
 });
 
-const getGithubChartData = (username, token) => new Promise((resolve, reject) => {
-  axios.get(`https://api.github.com/users/${username}/events/public`)
+const getGithubChartData = (url, events, token, resolve, reject) => {
+  axios.get(`${url}`, { headers: { Authorization: `token ${token}` } })
     .then((res) => {
       // Parse link Header for pagination info
       const link = parse(res.headers.link);
       // Build array of pushes in last 60 days
       // Build array of only 'PushEvents" < 60 days from Guthub Events
-      const pushData = res.data.filter(
-        gitHubEvent => gitHubEvent.type === 'PushEvent'
+      const pushData = events.concat(
+        res.data.filter(
+          gitHubEvent => gitHubEvent.type === 'PushEvent'
             && moment(gitHubEvent.created_at).isSameOrAfter(moment().subtract(60, 'days')),
+        ),
       );
       // If there is a 'Next" link in the header recursive call the function
       // passing the array back through and the Next page to get them
       if (link.next) {
-        getGithubChartData(link.next.url, pushData, resolve, reject);
+        getGithubChartData(link.next.url, pushData, token, resolve, reject);
       } else {
         // Create new Array of Objects for ReCharts format
         const githubChartData = [];
@@ -62,13 +64,12 @@ const getGithubChartData = (username, token) => new Promise((resolve, reject) =>
         }
         // Sort the final results so they display in the chart properly
         githubChartData.sort((a, b) => (moment(a.date, 'L').isAfter(moment(b.date, 'L')) ? 1 : -1));
-        console.log(githubChartData);
         resolve(githubChartData);
       }
     })
     .catch((err) => {
       reject(err);
     });
-});
+};
 
 export default { getUser, getUserEvents, getGithubChartData };

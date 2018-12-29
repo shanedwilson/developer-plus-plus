@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import moment from 'moment';
 
 import connection from '../helpers/data/connection';
 
@@ -22,12 +23,12 @@ class App extends Component {
     authed: false,
     profile: [],
     items: [],
-    github_username: '',
+    githubUsername: '',
     githubToken: '',
     view: 'blogs',
     commitCount: 0,
-    githubChartData: [],
     allItems: [],
+    gitHubChartData: [],
   }
 
   displayView = (clickedView) => {
@@ -38,6 +39,18 @@ class App extends Component {
       });
   };
 
+  getGithubData = (users, gitHubTokenStorage) => {
+    githubData.getUser(gitHubTokenStorage)
+      .then((profile) => {
+        this.setState({ profile });
+      });
+    githubData.getUserEvents(users, gitHubTokenStorage)
+      .then((commitCount) => {
+        this.setState({ commitCount });
+      })
+      .catch(err => console.error('error with github user events GET', err));
+  }
+
   getAllItems = () => {
     const uid = authRequests.getCurrentUid();
     itemData.getAllItemsData(uid)
@@ -46,66 +59,77 @@ class App extends Component {
       });
   }
 
-  componentDidUpdate() {
-    if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUser(this.state.github_username, this.state.githubToken)
-        .then((profile) => {
-          this.setState({ profile });
+    graphData = () => {
+      const { githubUsername, githubToken, allItems } = this.state;
+      const url = `https://api.github.com/users/${githubUsername}/events/public`;
+      if (githubUsername && githubToken) {
+        new Promise((resolve, reject) => {
+          githubData.getGithubChartData(url, [], githubToken, resolve, reject);
         })
-        .catch(err => console.error('error with github user GET', err));
-    }
-    if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUserEvents(this.state.github_username, this.state.githubToken)
-        .then((commitCount) => {
-          this.setState({ commitCount });
-        })
-        .catch(err => console.error('error with github user events GET', err));
-    }
-    if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getGithubChartData(this.state.github_username, this.state.githubToken)
-        .then((githubChartData) => {
-          this.setState({ githubChartData });
-        })
-        .catch(err => console.error('error with github user events GET', err));
-    }
-  }
-
-  componentDidMount() {
-    connection();
-
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const users = sessionStorage.getItem('github_username');
-        const gitHubTokenStorage = sessionStorage.getItem('githubToken');
-        this.displayView(this.state.view);
-        const allItems = this.getAllItems();
-        this.setState({
-          authed: true,
-          github_username: users,
-          githubToken: gitHubTokenStorage,
-          allItems,
-
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
+          .then((gitHubChartData) => {
+            const sixty = moment().subtract(60, 'days');
+            allItems.forEach((item) => {
+              const eventDate = moment.unix(item.doneDate).format('L');
+              const dateAlreadyExists = allItems.find(y => y.date === eventDate);
+              if (item.isDone && moment(eventDate, 'L').isAfter(sixty)) {
+                if (dateAlreadyExists) {
+                  dateAlreadyExists.articleCount = +1;
+                } else {
+                  gitHubChartData.push({
+                    date: eventDate,
+                    commits: 0,
+                    articleCount: 1,
+                  });
+                }
+              }
+            });
+            this.setState({ gitHubChartData });
+            console.log(gitHubChartData);
+            sessionStorage.setItem('gitHubChartData', gitHubChartData);
+          })
+          .catch(err => console.error('error with github chart data GET', err));
       }
-    });
-  }
+    }
 
-  componentWillUnmount() {
-    this.removeListener();
-  }
+    componentDidUpdate() {
+    }
+
+    componentDidMount() {
+      connection();
+
+      this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const users = sessionStorage.getItem('githubUsername');
+          const gitHubTokenStorage = sessionStorage.getItem('githubToken');
+          this.displayView(this.state.view);
+          const allItems = this.getAllItems();
+          this.getGithubData(users, gitHubTokenStorage);
+          this.setState({
+            authed: true,
+            githubUsername: users,
+            githubToken: gitHubTokenStorage,
+            allItems,
+          });
+        } else {
+          this.setState({
+            authed: false,
+          });
+        }
+      });
+    }
+
+    componentWillUnmount() {
+      this.removeListener();
+    }
 
   isAuthenticated = (username, accessToken) => {
     this.setState({
       authed: true,
-      github_username: username,
+      githubUsername: username,
       githubToken: accessToken,
     });
-    sessionStorage.setItem('github_username', username);
-    sessionStorage.getItem('githubToken', accessToken);
+    sessionStorage.setItem('githubUsername', username);
+    sessionStorage.setItem('githubToken', accessToken);
   }
 
 
@@ -147,10 +171,10 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.githubToken);
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false, github_username: '' });
+      sessionStorage.clear();
+      this.setState({ authed: false, githubUsername: '', githubToken: '' });
     };
 
     if (!this.state.authed) {
@@ -184,8 +208,8 @@ class App extends Component {
         </div>
         <div className="graph-container mt-5">
           <Graph
-          allItems={this.state.allItems}
-          githubChartData={this.githubChartData}
+          gitHubChartData={this.state.gitHubChartData}
+          graphData={this.graphData}
           />
         </div>
       </div>
