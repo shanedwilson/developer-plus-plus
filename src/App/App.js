@@ -29,6 +29,7 @@ class App extends Component {
     commitCount: 0,
     allItems: [],
     gitHubChartData: [],
+    activeTab: 'blogs',
   }
 
   displayView = (clickedView) => {
@@ -84,7 +85,6 @@ class App extends Component {
               }
             });
             this.setState({ gitHubChartData });
-            console.log(gitHubChartData);
             sessionStorage.setItem('gitHubChartData', gitHubChartData);
           })
           .catch(err => console.error('error with github chart data GET', err));
@@ -132,6 +132,14 @@ class App extends Component {
     sessionStorage.setItem('githubToken', accessToken);
   }
 
+  changeTab = (tab) => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
+  }
+
 
   deleteOne = (itemId, itemType) => {
     const uid = authRequests.getCurrentUid();
@@ -164,6 +172,7 @@ class App extends Component {
         itemData.getItemsData(uid, itemType)
           .then((items) => {
             this.setState({ items });
+            this.setState({ activeTab: itemType });
           });
       }).catch((err) => {
         console.error('error with items post', err);
@@ -203,6 +212,8 @@ class App extends Component {
             displayView={this.displayView}
             updateOne={this.updateOne}
             view={this.view}
+            changeTab={this.changeTab}
+            activeTab={this.state.activeTab}
             />
           </div>
         </div>
