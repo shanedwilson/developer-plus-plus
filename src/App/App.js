@@ -22,6 +22,7 @@ class App extends Component {
     profile: [],
     items: [],
     github_username: '',
+    githubToken: '',
     view: 'blogs',
     commitCount: 0,
   }
@@ -36,14 +37,14 @@ class App extends Component {
 
   componentDidUpdate() {
     if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUser(this.state.github_username)
+      githubData.getUser(this.state.github_username, this.state.githubToken)
         .then((profile) => {
           this.setState({ profile });
         })
         .catch(err => console.error('error with github user GET', err));
     }
     if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUserEvents(this.state.github_username)
+      githubData.getUserEvents(this.state.github_username, this.state.githubToken)
         .then((commitCount) => {
           this.setState({ commitCount });
         })
@@ -57,10 +58,12 @@ class App extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = sessionStorage.getItem('github_username');
+        const gitHubTokenStorage = sessionStorage.getItem('githubToken');
         this.displayView(this.state.view);
         this.setState({
           authed: true,
           github_username: users,
+          githubToken: gitHubTokenStorage,
         });
       } else {
         this.setState({
@@ -74,9 +77,10 @@ class App extends Component {
     this.removeListener();
   }
 
-  isAuthenticated = (username) => {
-    this.setState({ authed: true, github_username: username });
+  isAuthenticated = (username, accessToken) => {
+    this.setState({ authed: true, github_username: username, githubToken: accessToken });
     sessionStorage.setItem('github_username', username);
+    sessionStorage.getItem('githubToken', accessToken);
   }
 
   deleteOne = (itemId, itemType) => {

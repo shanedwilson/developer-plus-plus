@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const getUser = username => new Promise((resolve, reject) => {
-  axios.get(`https://api.github.com/users/${username}`)
+const getUser = (username, token) => new Promise((resolve, reject) => {
+  axios.get('https://api.github.com/user/', { headers: { Authorization: `token ${token}` } })
     .then((res) => {
       resolve(res.data);
     })
@@ -10,8 +10,8 @@ const getUser = username => new Promise((resolve, reject) => {
     });
 });
 
-const getUserEvents = username => new Promise((resolve, reject) => {
-  axios.get(`https://api.github.com/users/${username}/events/public`)
+const getUserEvents = (username, token) => new Promise((resolve, reject) => {
+  axios.get(`https://api.github.com/users/${username}/events/public`, { headers: { Authorization: `token ${token}` } })
     .then((res) => {
       let commitCount = 0;
       const pushEvents = res.data.filter(event => event.type === 'PushEvent');
