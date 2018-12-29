@@ -71,10 +71,11 @@ class App extends Component {
             const sixty = moment().subtract(60, 'days');
             allItems.forEach((item) => {
               const eventDate = moment.unix(item.doneDate).format('L');
-              const dateAlreadyExists = allItems.find(y => y.date === eventDate);
+              const dateAlreadyExists = gitHubChartData.find(y => y.date === eventDate);
+              console.log(dateAlreadyExists);
               if (item.isDone && moment(eventDate, 'L').isAfter(sixty)) {
                 if (dateAlreadyExists) {
-                  dateAlreadyExists.articleCount = +1;
+                  dateAlreadyExists.articleCount += 1;
                 } else {
                   gitHubChartData.push({
                     date: eventDate,
