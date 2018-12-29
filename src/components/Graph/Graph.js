@@ -19,11 +19,12 @@ class Graph extends React.Component {
     graphData: PropTypes.func,
   };
 
+  componentDidMount() {
+    this.props.graphData();
+  }
 
   render() {
-    const { gitHubChartData, graphData } = this.props;
-    console.log(gitHubChartData);
-    graphData();
+    const { gitHubChartData } = this.props;
     return (
       <LineChart width={1350} height={200} data={gitHubChartData}>
         <XAxis dataKey="date"/>

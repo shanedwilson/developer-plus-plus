@@ -9,6 +9,8 @@ const defaultItem = {
   url: '',
   uid: '',
   type: '',
+  isDone: false,
+  doneDate: 0,
 };
 
 

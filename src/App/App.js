@@ -89,7 +89,6 @@ class App extends Component {
           })
           .catch(err => console.error('error with github chart data GET', err));
       }
-      console.log(this.state.gitHubChartData)
     }
 
 
