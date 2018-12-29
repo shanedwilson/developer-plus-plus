@@ -5,28 +5,11 @@ import classnames from 'classnames';
 import './PortalNavbar.scss';
 
 class PortalNavbar extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      activeTab: 'blogs',
-    };
-  }
-
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      });
-    }
-  }
-
   portalNavEvent = (e) => {
     e.preventDefault();
     const selectedView = e.target.id;
     this.props.displayView(selectedView);
-    this.toggle(selectedView);
+    this.props.changeTab(selectedView);
   };
 
   render() {
@@ -35,7 +18,7 @@ class PortalNavbar extends React.Component {
         <Nav tabs color="light">
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === 'blogs' })}
+              className={classnames({ active: this.props.activeTab === 'blogs' })}
               id="blogs"
               onClick={this.portalNavEvent}
             >
@@ -44,7 +27,7 @@ class PortalNavbar extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === 'tutorials' })}
+              className={classnames({ active: this.props.activeTab === 'tutorials' })}
               id="tutorials"
               onClick={this.portalNavEvent}
               >
@@ -53,7 +36,7 @@ class PortalNavbar extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === 'resources' })}
+              className={classnames({ active: this.props.activeTab === 'resources' })}
               id="resources"
               onClick={this.portalNavEvent}
             >
@@ -62,7 +45,7 @@ class PortalNavbar extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              className={classnames({ active: this.state.activeTab === 'podcasts' })}
+              className={classnames({ active: this.props.activeTab === 'podcasts' })}
               id="podcasts"
               onClick={this.portalNavEvent}
             >

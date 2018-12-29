@@ -25,6 +25,7 @@ class App extends Component {
     githubToken: '',
     view: 'blogs',
     commitCount: 0,
+    activeTab: 'blogs',
   }
 
   displayView = (clickedView) => {
@@ -35,52 +36,57 @@ class App extends Component {
       });
   };
 
-  componentDidUpdate() {
-    if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUser(this.state.github_username, this.state.githubToken)
+    getGithubData = (users, gitHubTokenStorage) => {
+      githubData.getUser(gitHubTokenStorage)
         .then((profile) => {
           this.setState({ profile });
-        })
-        .catch(err => console.error('error with github user GET', err));
-    }
-    if (this.state.github_username && this.state.profile.length === 0) {
-      githubData.getUserEvents(this.state.github_username, this.state.githubToken)
+        });
+      githubData.getUserEvents(users, gitHubTokenStorage)
         .then((commitCount) => {
           this.setState({ commitCount });
         })
         .catch(err => console.error('error with github user events GET', err));
     }
-  }
 
-  componentDidMount() {
-    connection();
 
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const users = sessionStorage.getItem('github_username');
-        const gitHubTokenStorage = sessionStorage.getItem('githubToken');
-        this.displayView(this.state.view);
-        this.setState({
-          authed: true,
-          github_username: users,
-          githubToken: gitHubTokenStorage,
-        });
-      } else {
-        this.setState({
-          authed: false,
-        });
-      }
-    });
-  }
+    componentDidMount() {
+      connection();
 
-  componentWillUnmount() {
-    this.removeListener();
-  }
+      this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const users = sessionStorage.getItem('github_username');
+          const gitHubTokenStorage = sessionStorage.getItem('githubToken');
+          this.displayView(this.state.view);
+          this.getGithubData(users, gitHubTokenStorage);
+          this.setState({
+            authed: true,
+            github_username: users,
+            githubToken: gitHubTokenStorage,
+          });
+        } else {
+          this.setState({
+            authed: false,
+          });
+        }
+      });
+    }
+
+    componentWillUnmount() {
+      this.removeListener();
+    }
 
   isAuthenticated = (username, accessToken) => {
     this.setState({ authed: true, github_username: username, githubToken: accessToken });
     sessionStorage.setItem('github_username', username);
-    sessionStorage.getItem('githubToken', accessToken);
+    sessionStorage.setItem('githubToken', accessToken);
+  }
+
+  changeTab = (tab) => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
   }
 
   deleteOne = (itemId, itemType) => {
@@ -114,6 +120,7 @@ class App extends Component {
         itemData.getItemsData(uid, itemType)
           .then((items) => {
             this.setState({ items });
+            this.setState({ activeTab: itemType });
           });
       }).catch((err) => {
         console.error('error with items post', err);
@@ -153,6 +160,8 @@ class App extends Component {
             displayView={this.displayView}
             updateOne={this.updateOne}
             view={this.view}
+            changeTab={this.changeTab}
+            activeTab={this.state.activeTab}
             />
           </div>
         </div>

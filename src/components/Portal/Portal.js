@@ -15,6 +15,8 @@ class Portal extends React.Component {
     updateOne: PropTypes.func,
     displayView: PropTypes.func,
     isDone: PropTypes.bool,
+    changeTab: PropTypes.func,
+    activeTab: PropTypes.string,
   }
 
   render() {
@@ -25,6 +27,8 @@ class Portal extends React.Component {
       displayView,
       isDone,
       view,
+      changeTab,
+      activeTab,
     } = this.props;
 
     const itemComponents = items.map(item => (
@@ -42,6 +46,8 @@ class Portal extends React.Component {
         <PortalNavbar
           displayView={displayView}
           view={view}
+          activeTab={activeTab}
+          changeTab={changeTab}
           />
         <div className="item-div">
           <ul className="mt-2">{itemComponents}</ul>
