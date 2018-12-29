@@ -58,7 +58,7 @@ const getGithubChartData = (url, events, token, resolve, reject) => {
             githubChartData.push({
               date: eventDate,
               commits: element.payload.commits.length,
-              articleCount: 0,
+              itemCount: 0,
             });
           }
         }

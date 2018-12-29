@@ -75,12 +75,12 @@ class App extends Component {
               console.log(dateAlreadyExists);
               if (item.isDone && moment(eventDate, 'L').isAfter(sixty)) {
                 if (dateAlreadyExists) {
-                  dateAlreadyExists.articleCount += 1;
+                  dateAlreadyExists.itemCount += 1;
                 } else {
                   gitHubChartData.push({
                     date: eventDate,
                     commits: 0,
-                    articleCount: 1,
+                    itemCount: 1,
                   });
                 }
               }

@@ -39,7 +39,7 @@ class Graph extends React.Component {
         <Tooltip/>
         <Legend />
         <Line type="monotone" dataKey="commits" stroke="#8884d8" />
-        <Line type="monotone" dataKey="articleCount" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="itemCount" stroke="#82ca9d" />
       </LineChart>
     );
   }

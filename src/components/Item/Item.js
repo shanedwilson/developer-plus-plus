@@ -33,7 +33,9 @@ class Item extends React.Component {
     return (
       <li className="item">
         <span className="col-5">{item.name}</span>
-        <span className="col-5">{item.url}</span>
+        <a href={item.url} target="_blank" rel="noopener noreferrer">
+          <span className="col-5">{item.url}</span>
+        </a>
         <button className="btn btn-danger" onClick={this.deleteEvent}>
           <i className="fas fa-trash-alt" />
         </button>
