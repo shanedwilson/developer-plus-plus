@@ -17,10 +17,10 @@ This app is the first assignment given to us to complete in React. It includes a
 ## How to run this project:
 
 * Setup Firebase
-    Create a firebase project
-    Enable 'Github Authentication'
-    Create a Firebase Realtime Database (Not Firestore)
-    Create an apiKeys.js file (an example file exists in the 'helpers' folder)
+  -Create a firebase project
+  -Enable 'Github Authentication'
+  -Create a Firebase Realtime Database (Not Firestore)
+  -Create an apiKeys.js file (an example file exists in the 'helpers' folder)
 
 * Clone or download the repo
 
