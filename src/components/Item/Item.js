@@ -31,15 +31,17 @@ class Item extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <li className="item">
-        <span className="col-5">{item.name}</span>
+      <li className="item align-items-center">
+        <span className="col-4">{item.name}</span>
         <a href={item.url} target="_blank" rel="noopener noreferrer">
-          <span className="col-5">{item.url}</span>
+          <span className="col-6">{item.url}</span>
         </a>
-        <button className="btn btn-danger" onClick={this.deleteEvent}>
-          <i className="fas fa-trash-alt" />
-        </button>
-        <div className="checkbox-div ml-1">
+        <div className="delete-dev ml-auto col-1">
+          <button className="btn btn-danger" onClick={this.deleteEvent}>
+            <i className="fas fa-trash-alt" />
+          </button>
+        </div>
+        <div className="checkbox-div ml-1 col-1">
           <input type="checkbox" checked={item.isDone} onChange={this.checkEvent} />
           <label className="checkbox-label ml-1">Done!</label>
         </div>
