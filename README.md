@@ -1,44 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Developer++
+This app is the first assignment given to us to complete in React. It includes a GitHub Calling Card and the ability to store and delete our developing resources. We also have the ability to mark the resources as completed. A stretch goal was to use Rechart to graph our GitHub commits and our completed resources. Much thanks to my friend and collegue, Marco Crank, for leading the way on finding the charting path.
 
-## Available Scripts
+## Tech Requirements
+* Use create-react-app to start a new react project
+* Use GITHUB authentication
+* Include a navbar
+* Use CRUD to easily add learning materials to the project
+* Use radio buttons to categorize a material as a tutorial, blog, documentation, or podcast via CRUD
+* Use a checkbox to mark resources as completed, via CRUD. When a resource is marked as completed it should show up at the bottom of the tab it belongs to.
+* The ability to delete resources via CRUD.
 
-In the project directory, you can run:
+## Screenshots
+![Main Screenshot](./images/developer-plus-plus-main.png)
+![Second Screenshot](./images/developer-plus-plus-secondary.png)
 
-### `npm start`
+## How to run this project:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Setup Firebase  
+  -Create a firebase project  
+  -Enable 'Github Authentication'  
+  -Create a Firebase Realtime Database (Not Firestore)  
+  -Create an apiKeys.js file (an example file exists in the 'helpers' folder)  
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+* Clone or download the repo
 
-### `npm test`
+* Browse to the repo directory in your terminal
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* ```npm install``` installs necessary dependencies
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* ```npm start``` will run the project at http://localhost:3000
