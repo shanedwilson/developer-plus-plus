@@ -11,8 +11,8 @@ This app is the first assignment given to us to complete in React. It includes a
 * The ability to delete resources via CRUD.
 
 ## Screenshots
-![Main Screenshot](./img/developer-plus-plus-main.png)
-![Second Screenshot](./img/developer-plus-plus-seondary.png)
+![Main Screenshot](./imgages/developer-plus-plus-main.png)
+![Second Screenshot](./imgages/developer-plus-plus-seondary.png)
 
 ## How to run this project:
 
