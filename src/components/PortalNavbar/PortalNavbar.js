@@ -15,7 +15,7 @@ class PortalNavbar extends React.Component {
   render() {
     return (
       <div className="my-navbar nav-tabs">
-        <Nav tabs color="light">
+        <Nav tabs color="light" className={'top'}>
           <NavItem>
             <NavLink
               className={classnames({ active: this.props.activeTab === 'blogs' })}
