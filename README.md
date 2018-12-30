@@ -26,6 +26,6 @@ This app is the first assignment given to us to complete in React. It includes a
 
 * Browse to the repo directory in your terminal
 
-* ```npm install`` installs necessary dependencies
+* ```npm install``` installs necessary dependencies
 
 * ```npm start``` will run the project at http://localhost:3000
