@@ -85,8 +85,6 @@ class App extends Component {
               }
             });
             this.setState({ gitHubChartData });
-            console.log(gitHubChartData);
-            // sessionStorage.setItem('gitHubChartData', gitHubChartData);
           })
           .catch(err => console.error('error with github chart data GET', err));
       }

@@ -9,8 +9,6 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-// import githubData from '../../helpers/data/githubData';
-
 
 class Graph extends React.Component {
   static propTypes = {
@@ -19,13 +17,8 @@ class Graph extends React.Component {
   };
 
   componentDidMount() {
-    // this.props.graphData();
-    setTimeout(this.props.graphData(), 500);
+    this.props.graphData();
   }
-
-  // componentDidUpdate() {
-  //   this.props.graphData();
-  // }
 
   render() {
     const { gitHubChartData } = this.props;
