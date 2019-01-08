@@ -72,7 +72,6 @@ class App extends Component {
             allItems.forEach((item) => {
               const eventDate = moment.unix(item.doneDate).format('L');
               const dateAlreadyExists = gitHubChartData.find(y => y.date === eventDate);
-              console.log(dateAlreadyExists);
               if (item.isDone && moment(eventDate, 'L').isAfter(sixty)) {
                 if (dateAlreadyExists) {
                   dateAlreadyExists.itemCount += 1;
@@ -86,15 +85,20 @@ class App extends Component {
               }
             });
             this.setState({ gitHubChartData });
-            sessionStorage.setItem('gitHubChartData', gitHubChartData);
+            console.log(gitHubChartData);
+            // sessionStorage.setItem('gitHubChartData', gitHubChartData);
           })
           .catch(err => console.error('error with github chart data GET', err));
       }
     }
 
 
-    componentDidUpdate() {
-    }
+    // componentDidUpdate() {
+    //   console.log(sessionStorage.getItem('gitHubChartData'));
+    //   if (this.state.gitHubChartData.length === 0) {
+    //     this.setState({ gitHubChartData: sessionStorage.getItem('gitHubChartData') });
+    //   }
+    // }
 
     componentDidMount() {
       connection();

@@ -14,15 +14,13 @@ import {
 
 class Graph extends React.Component {
   static propTypes = {
-    githubUsername: PropTypes.string,
-    githubToken: PropTypes.string,
-    allItems: PropTypes.array,
     gitHubChartData: PropTypes.array,
     graphData: PropTypes.func,
   };
 
   componentDidMount() {
-    this.props.graphData();
+    // this.props.graphData();
+    setTimeout(this.props.graphData(), 500);
   }
 
   // componentDidUpdate() {
